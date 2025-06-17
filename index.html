@@ -10,6 +10,13 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
+    <div id="mobile-warning" style="display: none; text-align: center; padding: 50px;">
+  <h2>This website is only available on desktop.</h2>
+</div>
+
+<div id="main-content">
+  <!-- Your entire website content starts here -->
+
     <!-- Navigation -->
     <header>
     <nav class="navbar">
@@ -250,6 +257,15 @@
     </nav>
 
     <script src="script.js"></script>
+    </div> <!-- Close main-content -->
+
+<script>
+  if (window.innerWidth < 768) {
+    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('mobile-warning').style.display = 'block';
+  }
+</script>
+
 </body>
 </html> 
 
