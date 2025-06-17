@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Parameters - Python Functions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .definition {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .definition h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .code-example pre {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .concept-nav-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Function Parameters</h1>
+            <p class="lesson-description">Master different types of parameters and learn how to use them effectively in your functions.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 45 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Functions</span>
+            </div>
+        </div>
+
+        <!-- Concept 1: Required Parameters -->
+        <div class="concept-container active" data-concept="1">
+            <h2>Required Parameters</h2>
+            <div class="concept">
+                <h3>Understanding Required Parameters</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Required parameters are the basic building blocks of function arguments. They must be provided when calling the function, and their order matters.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of required parameters like mandatory fields in a form. Just as you can't submit a form without filling in required fields, you can't call a function without providing all its required parameters.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def add(x, y):
+    """Add two numbers together."""
+    return x + y
+
+# Function call with required parameters
+result = add(5, 3)  # Returns 8
+print(result)
+
+# This would cause an error:
+# add(5)  # TypeError: add() missing 1 required positional argument: 'y'</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 2: Default Parameters -->
+        <div class="concept-container" data-concept="2">
+            <h2>Default Parameters</h2>
+            <div class="concept">
+                <h3>Understanding Default Parameters</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Default parameters allow you to specify values that will be used if no argument is provided for that parameter. They make functions more flexible and easier to use.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Default parameters are like having a backup plan. If someone doesn't provide a specific value, the function will use the default value instead. This is particularly useful for optional settings or common use cases.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def greet(name, greeting="Hello"):
+    """Greet someone with a custom or default message."""
+    return f"{greeting}, {name}!"
+
+# Using default parameter
+print(greet("Alice"))  # Output: Hello, Alice!
+
+# Overriding default parameter
+print(greet("Bob", "Hi"))  # Output: Hi, Bob!</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 3: Variable Arguments -->
+        <div class="concept-container" data-concept="3">
+            <h2>Variable Arguments (*args)</h2>
+            <div class="concept">
+                <h3>Understanding Variable Arguments</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Variable arguments allow a function to accept any number of positional arguments.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Variable arguments are useful when you don't know how many arguments will be passed to a function. They allow you to handle a varying number of inputs.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def sum_all(*args):
+    """Sum all provided numbers."""
+    return sum(args)
+
+# Using variable arguments
+print(sum_all(1, 2, 3))  # Output: 6
+print(sum_all(1, 2, 3, 4, 5))  # Output: 15
+
+def print_args(*args):
+    """Print all arguments with their types."""
+    for arg in args:
+        print(f"Value: {arg}, Type: {type(arg)}")
+
+print_args(1, "hello", 3.14, True)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 4: Keyword Arguments -->
+        <div class="concept-container" data-concept="4">
+            <h2>Keyword Arguments (**kwargs)</h2>
+            <div class="concept">
+                <h3>Understanding Keyword Arguments</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Keyword arguments allow a function to accept any number of named arguments.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Keyword arguments are useful when you want to pass arguments to a function without knowing the exact order of the arguments. They allow you to specify the argument name.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def create_profile(**kwargs):
+    """Create a user profile with any number of attributes."""
+    return kwargs
+
+# Using keyword arguments
+profile = create_profile(
+    name="John",
+    age=30,
+    city="New York",
+    occupation="Developer"
+)
+print(profile)
+
+def print_kwargs(**kwargs):
+    """Print all keyword arguments."""
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_kwargs(first="Hello", second="World")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 5: Parameter Order -->
+        <div class="concept-container" data-concept="5">
+            <h2>Parameter Order</h2>
+            <div class="concept">
+                <h3>Understanding Parameter Order</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Understanding the correct order of parameters in Python functions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>The order of parameters in a function is important. Python functions follow a specific order: required parameters, *args, default parameters, **kwargs.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def complex_function(required1, required2, *args, default1="value1", default2="value2", **kwargs):
+    """Demonstrate parameter order in Python functions."""
+    print(f"Required: {required1}, {required2}")
+    print(f"Args: {args}")
+    print(f"Defaults: {default1}, {default2}")
+    print(f"Kwargs: {kwargs}")
+
+# Valid call
+complex_function(1, 2, 3, 4, default2="custom", extra="value")
+
+# Invalid call (will raise error)
+# complex_function(1, default1="custom", 2)  # SyntaxError</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 6: Type Hints -->
+        <div class="concept-container" data-concept="6">
+            <h2>Type Hints</h2>
+            <div class="concept">
+                <h3>Using Type Hints</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Using type hints to document expected parameter types.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Type hints help with IDE support and documentation. They provide a way to specify the expected type of a parameter.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from typing import List, Union, Dict
+
+def process_data(
+    numbers: List[Union[int, float]],
+    options: Dict[str, bool] = None
+) -> float:
+    """Process a list of numbers with optional settings."""
+    if options is None:
+        options = {}
+    return sum(numbers) / len(numbers)
+
+# Type hints help with IDE support and documentation
+result = process_data([1, 2, 3.5], {"verbose": True})</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 7: Parameter Validation -->
+        <div class="concept-container" data-concept="7">
+            <h2>Parameter Validation</h2>
+            <div class="concept">
+                <h3>Validating Parameters</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Validating parameters before processing them in the function.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Parameter validation is important to ensure that the function receives valid input. It helps prevent errors and unexpected behavior.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def calculate_percentage(value: float, total: float) -> float:
+    """Calculate percentage with parameter validation."""
+    if not isinstance(value, (int, float)) or not isinstance(total, (int, float)):
+        raise TypeError("Both parameters must be numbers")
+    if total == 0:
+        raise ValueError("Total cannot be zero")
+    if value < 0 or total < 0:
+        raise ValueError("Values cannot be negative")
+    
+    return (value / total) * 100
+
+# Valid calls
+print(calculate_percentage(50, 100))  # 50.0
+print(calculate_percentage(75, 150))  # 50.0
+
+# Invalid calls
+# calculate_percentage("50", 100)  # TypeError
+# calculate_percentage(50, 0)      # ValueError</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 8: Mutable Default Parameters -->
+        <div class="concept-container" data-concept="8">
+            <h2>Mutable Default Parameters</h2>
+            <div class="concept">
+                <h3>Understanding Mutable Default Parameters</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Understanding the pitfalls of using mutable objects as default parameters.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Mutable default parameters can lead to unexpected behavior. It's better to use None as a default and create the object inside the function.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Incorrect way (using mutable default)
+def add_to_list(item, my_list=[]):
+    my_list.append(item)
+    return my_list
+
+# Correct way (using None as default)
+def add_to_list_safe(item, my_list=None):
+    if my_list is None:
+        my_list = []
+    my_list.append(item)
+    return my_list
+
+# Demonstration
+print(add_to_list(1))  # [1]
+print(add_to_list(2))  # [1, 2]  # Unexpected!
+
+print(add_to_list_safe(1))  # [1]
+print(add_to_list_safe(2))  # [2]  # Expected behavior</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 9: Parameter Unpacking -->
+        <div class="concept-container" data-concept="9">
+            <h2>Parameter Unpacking</h2>
+            <div class="concept">
+                <h3>Using Unpacking Operators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Using unpacking operators to pass arguments to functions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Unpacking operators allow you to pass multiple arguments at once. They can be used with tuples, lists, and dictionaries.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def print_coordinates(x, y, z):
+    """Print 3D coordinates."""
+    print(f"X: {x}, Y: {y}, Z: {z}")
+
+# Using unpacking
+point = (10, 20, 30)
+print_coordinates(*point)  # Unpacking tuple
+
+# Dictionary unpacking
+def create_user(name, age, city):
+    return {"name": name, "age": age, "city": city}
+
+user_data = {"name": "John", "age": 30, "city": "New York"}
+user = create_user(**user_data)  # Unpacking dictionary</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 10: Parameter Documentation -->
+        <div class="concept-container" data-concept="10">
+            <h2>Parameter Documentation</h2>
+            <div class="concept">
+                <h3>Best Practices for Documentation</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Best practices for documenting function parameters.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Good documentation helps others understand your code and makes it easier to maintain. It's important to include clear descriptions and type hints.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def calculate_discount(
+    price: float,
+    discount_percent: float,
+    min_purchase: float = 0
+) -> float:
+    """
+    Calculate the discounted price for a product.
+    
+    Args:
+        price (float): Original price of the product
+        discount_percent (float): Discount percentage (0-100)
+        min_purchase (float, optional): Minimum purchase amount for discount.
+            Defaults to 0.
+    
+    Returns:
+        float: Final price after discount
+    
+    Raises:
+        ValueError: If discount_percent is not between 0 and 100
+        TypeError: If any parameter is not a number
+    """
+    if not 0 <= discount_percent <= 100:
+        raise ValueError("Discount must be between 0 and 100")
+    if price < min_purchase:
+        return price
+    return price * (1 - discount_percent / 100)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-navigation">
+            <button class="concept-nav-btn" id="prev-concept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous Concept
+            </button>
+            <span id="concept-counter">Concept 1 of 10</span>
+            <button class="concept-nav-btn" id="next-concept">
+                Next Concept <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Concept navigation
+        let currentConcept = 0;
+        const concepts = document.querySelectorAll('.concept-container');
+        
+        function showConcept(index) {
+            concepts.forEach(concept => concept.classList.remove('active'));
+            concepts[index].classList.add('active');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.getElementById('concept-counter').textContent = 
+                `Concept ${currentConcept + 1} of ${concepts.length}`;
+            document.getElementById('prev-concept').disabled = currentConcept === 0;
+            document.getElementById('next-concept').disabled = 
+                currentConcept === concepts.length - 1;
+        }
+
+        document.getElementById('prev-concept').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+
+        document.getElementById('next-concept').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            }
+        });
+
+        // Initialize first concept
+        showConcept(0);
+    </script>
+</body>
+</html> 

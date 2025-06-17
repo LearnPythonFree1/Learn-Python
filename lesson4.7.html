@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursion - Python Functions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .definition {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .definition h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .code-example pre {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .concept-nav-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Recursion</h1>
+            <p class="lesson-description">Master the art of recursive programming in Python and learn how to solve complex problems elegantly.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 45 minutes</span>
+                <span><i class="fas fa-signal"></i> Intermediate</span>
+                <span><i class="fas fa-book"></i> Functions</span>
+            </div>
+        </div>
+
+        <!-- Concept 1: Basic Recursion -->
+        <div class="concept-container active" data-concept="1">
+            <h2>Basic Recursion</h2>
+            <div class="concept">
+                <h3>Understanding Recursive Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Recursion is a programming technique where a function calls itself to solve a problem by breaking it down into smaller subproblems.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>A recursive function must have a base case (stopping condition) and a recursive case (where it calls itself with a smaller problem).</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def factorial(n):
+    # Base case
+    if n == 0 or n == 1:
+        return 1
+    # Recursive case
+    return n * factorial(n - 1)
+
+# Example usage
+print(factorial(5))  # Output: 120
+print(factorial(0))  # Output: 1</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 2: Fibonacci Sequence -->
+        <div class="concept-container" data-concept="2">
+            <h2>Fibonacci Sequence</h2>
+            <div class="concept">
+                <h3>Implementing Fibonacci Recursively</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Fibonacci numbers can be calculated recursively, though this approach can be inefficient for large numbers due to repeated calculations.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def fibonacci(n):
+    # Base cases
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    # Recursive case
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Example usage
+for i in range(10):
+    print(f"Fibonacci({i}) = {fibonacci(i)}")
+
+# Output:
+# Fibonacci(0) = 0
+# Fibonacci(1) = 1
+# Fibonacci(2) = 1
+# Fibonacci(3) = 2
+# Fibonacci(4) = 3
+# Fibonacci(5) = 5
+# Fibonacci(6) = 8
+# Fibonacci(7) = 13
+# Fibonacci(8) = 21
+# Fibonacci(9) = 34</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 3: Tail Recursion -->
+        <div class="concept-container" data-concept="3">
+            <h2>Tail Recursion</h2>
+            <div class="concept">
+                <h3>Optimizing Recursive Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Tail recursion occurs when the recursive call is the last operation in the function, allowing for optimization by the compiler.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>In tail recursion, the recursive call is the final operation, and no additional computation is needed after the recursive call returns.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def factorial_tail(n, accumulator=1):
+    # Base case
+    if n == 0 or n == 1:
+        return accumulator
+    # Tail recursive case
+    return factorial_tail(n - 1, n * accumulator)
+
+# Example usage
+print(factorial_tail(5))  # Output: 120
+
+def fibonacci_tail(n, a=0, b=1):
+    # Base case
+    if n == 0:
+        return a
+    if n == 1:
+        return b
+    # Tail recursive case
+    return fibonacci_tail(n - 1, b, a + b)
+
+# Example usage
+print(fibonacci_tail(9))  # Output: 34</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 4: Tree Recursion -->
+        <div class="concept-container" data-concept="4">
+            <h2>Tree Recursion</h2>
+            <div class="concept">
+                <h3>Multiple Recursive Calls</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Tree recursion occurs when a function makes multiple recursive calls, creating a tree-like structure of function calls.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Each recursive call can lead to multiple new recursive calls, creating a branching pattern that can be visualized as a tree.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def count_paths(n):
+    # Base cases
+    if n < 0:
+        return 0
+    if n == 0:
+        return 1
+    # Tree recursive case
+    return count_paths(n-1) + count_paths(n-2) + count_paths(n-3)
+
+# Example usage
+print(count_paths(3))  # Output: 4
+# Paths: 1-1-1, 1-2, 2-1, 3
+
+def tree_sum(tree):
+    # Base case
+    if not isinstance(tree, list):
+        return tree
+    # Tree recursive case
+    return sum(tree_sum(branch) for branch in tree)
+
+# Example usage
+tree = [1, [2, 3], [4, [5, 6]]]
+print(tree_sum(tree))  # Output: 21</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 5: Memoization -->
+        <div class="concept-container" data-concept="5">
+            <h2>Memoization</h2>
+            <div class="concept">
+                <h3>Optimizing Recursive Functions with Caching</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Memoization is a technique that stores the results of expensive function calls and returns the cached result when the same inputs occur again.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>By caching previously computed results, memoization can significantly improve the performance of recursive functions that make repeated calculations.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def memoize(func):
+    cache = {}
+    def wrapper(*args):
+        if args not in cache:
+            cache[args] = func(*args)
+        return cache[args]
+    return wrapper
+
+@memoize
+def fibonacci_memo(n):
+    if n <= 1:
+        return n
+    return fibonacci_memo(n-1) + fibonacci_memo(n-2)
+
+# Example usage
+print(fibonacci_memo(40))  # Much faster than the non-memoized version
+
+# Alternative using functools
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibonacci_lru(n):
+    if n <= 1:
+        return n
+    return fibonacci_lru(n-1) + fibonacci_lru(n-2)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 6: Recursive Data Structures -->
+        <div class="concept-container" data-concept="6">
+            <h2>Recursive Data Structures</h2>
+            <div class="concept">
+                <h3>Working with Nested Structures</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Recursive data structures are data structures that contain references to instances of the same type, such as trees and linked lists.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Recursive functions are particularly well-suited for processing recursive data structures, as they can naturally traverse the nested structure.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def tree_depth(node):
+    # Base case
+    if node is None:
+        return 0
+    # Recursive case
+    return 1 + max(tree_depth(node.left), tree_depth(node.right))
+
+def tree_sum(node):
+    # Base case
+    if node is None:
+        return 0
+    # Recursive case
+    return node.value + tree_sum(node.left) + tree_sum(node.right)
+
+# Example usage
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+
+print(f"Tree depth: {tree_depth(root)}")  # Output: 3
+print(f"Tree sum: {tree_sum(root)}")      # Output: 15</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 7: Divide and Conquer -->
+        <div class="concept-container" data-concept="7">
+            <h2>Divide and Conquer</h2>
+            <div class="concept">
+                <h3>Solving Problems Recursively</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Divide and conquer is a problem-solving paradigm that breaks down a problem into smaller subproblems, solves them recursively, and combines their solutions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This approach is particularly effective for problems that can be naturally divided into smaller, similar subproblems.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def merge_sort(arr):
+    # Base case
+    if len(arr) <= 1:
+        return arr
+    
+    # Divide
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    
+    # Conquer
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+# Example usage
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print(sorted_arr)  # Output: [11, 12, 22, 25, 34, 64, 90]</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 8: Backtracking -->
+        <div class="concept-container" data-concept="8">
+            <h2>Backtracking</h2>
+            <div class="concept">
+                <h3>Solving Constraint Satisfaction Problems</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Backtracking is a recursive algorithm that builds solutions incrementally and abandons partial solutions that cannot be completed.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This technique is particularly useful for solving problems with multiple constraints, such as the N-Queens problem or Sudoku.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def solve_n_queens(n):
+    def is_safe(board, row, col):
+        # Check column
+        for i in range(row):
+            if board[i][col] == 'Q':
+                return False
+        
+        # Check upper diagonal
+        for i, j in zip(range(row-1, -1, -1), range(col-1, -1, -1)):
+            if board[i][j] == 'Q':
+                return False
+        
+        # Check lower diagonal
+        for i, j in zip(range(row-1, -1, -1), range(col+1, n)):
+            if board[i][j] == 'Q':
+                return False
+        
+        return True
+    
+    def solve(board, row):
+        # Base case
+        if row == n:
+            return True
+        
+        # Try placing queen in each column
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row][col] = 'Q'
+                if solve(board, row + 1):
+                    return True
+                board[row][col] = '.'  # Backtrack
+        
+        return False
+    
+    # Initialize board
+    board = [['.' for _ in range(n)] for _ in range(n)]
+    if solve(board, 0):
+        return board
+    return None
+
+# Example usage
+solution = solve_n_queens(4)
+for row in solution:
+    print(row)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 9: Dynamic Programming -->
+        <div class="concept-container" data-concept="9">
+            <h2>Dynamic Programming</h2>
+            <div class="concept">
+                <h3>Optimizing Recursive Solutions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Dynamic programming is a method for solving complex problems by breaking them down into simpler subproblems and storing their solutions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This approach combines recursion with memoization to avoid redundant calculations and improve efficiency.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def longest_common_subsequence(str1, str2):
+    m, n = len(str1), len(str2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    
+    # Fill the dp table
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if str1[i-1] == str2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    
+    # Reconstruct the sequence
+    lcs = []
+    i, j = m, n
+    while i > 0 and j > 0:
+        if str1[i-1] == str2[j-1]:
+            lcs.append(str1[i-1])
+            i -= 1
+            j -= 1
+        elif dp[i-1][j] > dp[i][j-1]:
+            i -= 1
+        else:
+            j -= 1
+    
+    return ''.join(reversed(lcs))
+
+# Example usage
+str1 = "ABCDGH"
+str2 = "AEDFHR"
+print(longest_common_subsequence(str1, str2))  # Output: "ADH"</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 10: Recursion Best Practices -->
+        <div class="concept-container" data-concept="10">
+            <h2>Recursion Best Practices</h2>
+            <div class="concept">
+                <h3>Guidelines for Writing Recursive Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Best practices for writing efficient and maintainable recursive functions in Python.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Following these guidelines helps avoid common pitfalls and ensures your recursive functions are both correct and efficient.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Good: Clear base case and recursive case
+def factorial(n):
+    if n == 0:  # Clear base case
+        return 1
+    return n * factorial(n - 1)  # Clear recursive case
+
+# Bad: Missing base case
+def infinite_recursion(n):
+    return n * infinite_recursion(n - 1)  # Will cause stack overflow
+
+# Good: Using helper function for additional parameters
+def fibonacci(n):
+    def fib_helper(n, a, b):
+        if n == 0:
+            return a
+        if n == 1:
+            return b
+        return fib_helper(n - 1, b, a + b)
+    return fib_helper(n, 0, 1)
+
+# Good: Using memoization for efficiency
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def expensive_recursion(n):
+    if n <= 1:
+        return n
+    return expensive_recursion(n-1) + expensive_recursion(n-2)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-navigation">
+            <button class="concept-nav-btn" id="prev-concept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous Concept
+            </button>
+            <span id="concept-counter">Concept 1 of 10</span>
+            <button class="concept-nav-btn" id="next-concept">
+                Next Concept <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Concept navigation
+        let currentConcept = 0;
+        const concepts = document.querySelectorAll('.concept-container');
+        
+        function showConcept(index) {
+            concepts.forEach(concept => concept.classList.remove('active'));
+            concepts[index].classList.add('active');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.getElementById('concept-counter').textContent = 
+                `Concept ${currentConcept + 1} of ${concepts.length}`;
+            document.getElementById('prev-concept').disabled = currentConcept === 0;
+            document.getElementById('next-concept').disabled = 
+                currentConcept === concepts.length - 1;
+        }
+
+        document.getElementById('prev-concept').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+
+        document.getElementById('next-concept').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            }
+        });
+
+        // Initialize first concept
+        showConcept(0);
+    </script>
+</body>
+</html>

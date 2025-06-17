@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Methods - Python Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--background-color); color: var(--text-color); line-height: 1.6; }
+        .lesson-container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .lesson-header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+        .lesson-header h1 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem; }
+        .lesson-description { color: var(--secondary-color); font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+        .lesson-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; color: var(--secondary-color); }
+        .lesson-stats span { display: flex; align-items: center; gap: 0.5rem; }
+        .concept-container { background: var(--card-background); border-radius: var(--border-radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow); display: none; }
+        .concept-container.active { display: block; }
+        .concept h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.5rem; }
+        .definition { background: #f8f9fa; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .definition h4 { color: var(--secondary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .explanation { background: #f0f7ff; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .explanation h4 { color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .code-example { background: #2d2d2d; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; position: relative; }
+        .code-example pre { color: #fff; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .copy-btn { position: absolute; top: 1rem; right: 1rem; background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .copy-btn:hover { background-color: #357abd; }
+        .concept-navigation { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .concept-nav-btn { background: var(--primary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background-color 0.3s; }
+        .concept-nav-btn:hover { background-color: #357abd; }
+        .concept-nav-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        @media (max-width: 768px) { .lesson-container { padding: 1rem; } .lesson-header { padding: 1.5rem; } .lesson-header h1 { font-size: 2rem; } .lesson-stats { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>List Methods</h1>
+            <p class="lesson-description">Learn how to manipulate and work with lists in Python using built-in methods.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 20 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Data Types</span>
+            </div>
+        </div>
+        <div class="concept-container active" data-concept="1">
+            <h2>What are List Methods?</h2>
+            <div class="concept">
+                <h3>Definition and Purpose</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>List methods are built-in functions that perform operations on lists, such as adding, removing, or sorting elements.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>List methods help you manage lists easily, like adding items, removing duplicates, or sorting them.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_list = [1, 2, 3]
+my_list.append(4)
+print(my_list)  # [1, 2, 3, 4]</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to use a list method to add an element to a list.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="2">
+            <h2>Adding Elements</h2>
+            <div class="concept">
+                <h3>How to add elements to a list?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Common methods for adding elements include append(), extend(), and insert().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use append() to add a single item, extend() to add multiple items, and insert() to add an item at a specific position.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_list = [1, 2, 3]
+my_list.append(4)  # [1, 2, 3, 4]
+my_list.extend([5, 6])  # [1, 2, 3, 4, 5, 6]
+my_list.insert(0, 0)  # [0, 1, 2, 3, 4, 5, 6]</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates how to add elements to a list using different methods.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="3">
+            <h2>Removing Elements</h2>
+            <div class="concept">
+                <h3>How to remove elements from a list?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Common methods for removing elements include remove(), pop(), and clear().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use remove() to delete a specific value, pop() to remove and return an item, and clear() to empty the list.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_list = [1, 2, 3, 4, 5]
+my_list.remove(3)  # [1, 2, 4, 5]
+popped = my_list.pop()  # 5, my_list is now [1, 2, 4]
+my_list.clear()  # []</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to remove elements from a list using different methods.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="4">
+            <h2>Sorting and Reversing</h2>
+            <div class="concept">
+                <h3>How to sort and reverse a list?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The sort() method arranges elements in ascending order, and reverse() flips the order of the list.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use sort() to order a list, and reverse() to change the order of elements.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_list = [3, 1, 4, 1, 5, 9, 2, 6]
+my_list.sort()  # [1, 1, 2, 3, 4, 5, 6, 9]
+my_list.reverse()  # [9, 6, 5, 4, 3, 2, 1, 1]</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates how to sort and reverse a list in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="5">
+            <h2>Counting and Finding</h2>
+            <div class="concept">
+                <h3>How to count and find elements?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The count() method returns the number of occurrences of an element, and index() finds the first occurrence of a value.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use count() to see how many times an item appears, and index() to find where it is located.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_list = [1, 2, 2, 3, 2, 4]
+print(my_list.count(2))  # 3
+print(my_list.index(3))  # 3</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to count and find elements in a list.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="6">
+            <h2>Practice Exercise: List Manager</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A list manager program that uses list methods to add, remove, sort, and display elements.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines multiple list methods to create a functional list management tool.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def list_manager():
+    my_list = []
+    while True:
+        print("\n1. Add element")
+        print("2. Remove element")
+        print("3. Sort list")
+        print("4. Display list")
+        print("5. Exit")
+        choice = input("Enter your choice (1-5): ")
+        if choice == "1":
+            element = input("Enter element to add: ")
+            my_list.append(element)
+            print("Element added!")
+        elif choice == "2":
+            if my_list:
+                element = input("Enter element to remove: ")
+                if element in my_list:
+                    my_list.remove(element)
+                    print("Element removed!")
+                else:
+                    print("Element not found!")
+            else:
+                print("List is empty!")
+        elif choice == "3":
+            my_list.sort()
+            print("List sorted!")
+        elif choice == "4":
+            print("List:", my_list)
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice!")
+list_manager()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise lets you practice using list methods to manage a list interactively.</p>
+            </div>
+        </div>
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        let currentConcept = 1;
+        const totalConcepts = 6;
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            prevBtn.disabled = currentConcept === 1;
+            nextBtn.disabled = currentConcept === totalConcepts;
+        }
+        function showConcept(conceptNumber) {
+            document.querySelectorAll('.concept-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            const concept = document.querySelector(`[data-concept="${conceptNumber}"]`);
+            if (concept) {
+                concept.classList.add('active');
+            }
+            currentConcept = conceptNumber;
+            updateNavigation();
+        }
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 1) {
+                showConcept(currentConcept - 1);
+            }
+        });
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < totalConcepts) {
+                showConcept(currentConcept + 1);
+            }
+        });
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showConcept(1);
+        });
+    </script>
+</body>
+</html> 

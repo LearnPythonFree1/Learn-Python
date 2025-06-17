@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Variables and Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lesson-title i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .concept-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .concept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .concept-number {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-number i {
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .concept-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .concept-answer {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-answer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-title i {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .answer-text {
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
+
+        .definition-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .definition-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .definition-title i {
+            font-size: 1.3rem;
+        }
+
+        .definition-text {
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+        }
+
+        .nav-button:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .concept-question {
+                font-size: 1.2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <h1 class="lesson-title">
+                <i class="fas fa-code"></i>
+                Variables and Data Types
+            </h1>
+            <p class="lesson-description">
+                Master the fundamentals of variables and data types in Python. Learn how to work with different types of data and understand their properties.
+            </p>
+            <div class="lesson-stats">
+                <div class="stat-item">
+                    <i class="far fa-clock"></i>
+                    <span>30 minutes</span>
+                </div>
+                <div class="stat-item">
+                    <i class="far fa-file-alt"></i>
+                    <span>5 sections</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 1
+                </div>
+            </div>
+            <div class="concept-question">What are the different ways to declare and initialize variables in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python offers several ways to declare and initialize variables:
+
+                    1. Basic Assignment:
+                    name = "John"
+                    age = 25
+                    height = 1.75
+                    is_student = True
+
+                    2. Multiple Assignment:
+                    x, y, z = 1, 2, 3
+                    a = b = c = 0
+
+                    3. Augmented Assignment:
+                    count = 0
+                    count += 1    # Same as count = count + 1
+                    count *= 2    # Same as count = count * 2
+
+                    4. Unpacking:
+                    coordinates = (10, 20)
+                    x, y = coordinates
+
+                    5. Type Annotation (Python 3.6+):
+                    name: str = "John"
+                    age: int = 25
+                    scores: list[int] = [85, 90, 95]
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Variable declaration in Python is the process of creating a named reference to a value in memory. Unlike some other programming languages, Python doesn't require explicit type declaration. The type is inferred from the value assigned to the variable. This dynamic typing makes Python flexible but also requires careful attention to variable types during development.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 2
+                </div>
+            </div>
+            <div class="concept-question">What are the main numeric data types in Python and how do they differ?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python has three main numeric types:
+
+                    1. Integers (int):
+                    • Whole numbers (positive or negative)
+                    • Unlimited precision
+                    • Examples:
+                      x = 42
+                      y = -17
+                      z = 1000000
+
+                    2. Floating-point (float):
+                    • Decimal numbers
+                    • Limited precision
+                    • Examples:
+                      pi = 3.14159
+                      e = 2.71828
+                      temperature = -0.5
+
+                    3. Complex (complex):
+                    • Numbers with real and imaginary parts
+                    • Uses 'j' for imaginary unit
+                    • Examples:
+                      z1 = 3 + 4j
+                      z2 = complex(3, 4)
+
+                    Type Conversion:
+                    int(3.14)     # 3
+                    float(42)     # 42.0
+                    complex(3, 4) # (3+4j)
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Numeric data types in Python represent different kinds of numbers. Integers are used for whole numbers, floats for decimal numbers, and complex numbers for mathematical operations involving imaginary numbers. Python automatically handles the conversion between these types when needed, but it's important to understand their limitations and use cases.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 3
+                </div>
+            </div>
+            <div class="concept-question">How do you work with strings in Python and what are their main operations?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Strings in Python are sequences of characters with various operations:
+
+                    1. String Creation:
+                    single_quotes = 'Hello'
+                    double_quotes = "World"
+                    multi_line = '''This is a
+                    multi-line string'''
+
+                    2. String Operations:
+                    # Concatenation
+                    full_name = "John" + " " + "Doe"
+                    
+                    # Repetition
+                    pattern = "=" * 20
+                    
+                    # Length
+                    length = len("Python")
+                    
+                    # Indexing
+                    first_char = "Python"[0]    # 'P'
+                    last_char = "Python"[-1]    # 'n'
+                    
+                    # Slicing
+                    substring = "Python"[1:4]   # 'yth'
+
+                    3. String Methods:
+                    text = "  Hello, World!  "
+                    text.strip()        # Remove whitespace
+                    text.lower()        # Convert to lowercase
+                    text.upper()        # Convert to uppercase
+                    text.replace("o", "0")  # Replace characters
+                    text.split(",")     # Split into list
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Strings in Python are immutable sequences of Unicode characters. They are one of the most commonly used data types and come with a rich set of built-in methods for manipulation. Python's string handling is known for its flexibility and power, supporting various operations like concatenation, slicing, and formatting.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 4
+                </div>
+            </div>
+            <div class="concept-question">What are the main collection data types in Python and when should you use each?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python has four main collection types:
+
+                    1. Lists:
+                    • Mutable, ordered sequences
+                    • Use when you need to modify the collection
+                    • Example:
+                      fruits = ["apple", "banana", "cherry"]
+                      fruits.append("orange")
+                      fruits[0] = "mango"
+
+                    2. Tuples:
+                    • Immutable, ordered sequences
+                    • Use for data that shouldn't change
+                    • Example:
+                      coordinates = (10, 20)
+                      rgb = (255, 128, 0)
+
+                    3. Dictionaries:
+                    • Key-value pairs
+                    • Use for data with unique keys
+                    • Example:
+                      person = {
+                          "name": "John",
+                          "age": 30,
+                          "city": "New York"
+                      }
+
+                    4. Sets:
+                    • Unordered, unique elements
+                    • Use for membership testing
+                    • Example:
+                      unique_numbers = {1, 2, 3, 4, 5}
+                      unique_numbers.add(6)
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Collection data types in Python are used to store multiple values in a single variable. Each type has its own characteristics and use cases. Lists are versatile and mutable, tuples are immutable and ordered, dictionaries provide key-value mapping, and sets ensure unique elements. Choosing the right collection type depends on your specific needs for data storage and manipulation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 5
+                </div>
+            </div>
+            <div class="concept-question">How do you handle type conversion and type checking in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python provides several ways to handle type conversion and checking:
+
+                    1. Type Conversion (Casting):
+                    # Converting to different types
+                    str(42)          # '42'
+                    int('42')        # 42
+                    float('3.14')    # 3.14
+                    list('Python')   # ['P', 'y', 't', 'h', 'o', 'n']
+                    tuple([1, 2, 3]) # (1, 2, 3)
+                    set([1, 2, 2, 3]) # {1, 2, 3}
+
+                    2. Type Checking:
+                    # Using type() function
+                    type(42)         # <class 'int'>
+                    type('Hello')    # <class 'str'>
+
+                    # Using isinstance()
+                    isinstance(42, int)      # True
+                    isinstance('Hello', str) # True
+
+                    3. Type Annotations (Python 3.6+):
+                    def greet(name: str) -> str:
+                        return f"Hello, {name}"
+
+                    4. Type Hints with Union:
+                    from typing import Union
+                    def process_data(data: Union[str, int, float]) -> str:
+                        return str(data)
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Type conversion and checking in Python are essential for ensuring data consistency and preventing errors. Python's dynamic typing allows for flexible type conversion, but it's important to handle these conversions carefully to avoid runtime errors. Type hints and annotations help make code more maintainable and self-documenting, while type checking functions help ensure data integrity.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="lesson2.html" class="nav-button prev-button">
+                <i class="fas fa-arrow-left"></i>
+                Previous Lesson
+            </a>
+            <a href="lesson4.html" class="nav-button next-button">
+                Next Lesson
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const concepts = document.querySelectorAll('.concept-container');
+            let currentIndex = 0;
+            
+            // Hide all concepts except the first one
+            concepts.forEach((concept, index) => {
+                if (index !== 0) {
+                    concept.style.display = 'none';
+                }
+            });
+
+            // Show the first concept
+            if (concepts.length > 0) {
+                concepts[0].classList.add('active');
+            }
+
+            // Create and add the Next button
+            const nextButton = document.createElement('button');
+            nextButton.className = 'nav-button next-button';
+            nextButton.innerHTML = 'Next Question <i class="fas fa-arrow-right"></i>';
+            nextButton.style.margin = '2rem auto';
+            nextButton.style.display = 'block';
+            
+            const navigationButtons = document.querySelector('.navigation-buttons');
+            navigationButtons.parentNode.insertBefore(nextButton, navigationButtons);
+
+            // Mark Lesson 3 as completed in localStorage and update UI
+            function finishLesson() {
+                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                if (!completedLessons.includes(3)) {
+                    completedLessons.push(3);
+                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                    // Dispatch a custom event to notify the beginner page
+                    window.dispatchEvent(new CustomEvent('lessonCompleted', { detail: { lessonNumber: 3 } }));
+                }
+            }
+
+            // Add click event to the Next button
+            nextButton.addEventListener('click', function() {
+                // Hide current concept
+                concepts[currentIndex].style.display = 'none';
+                concepts[currentIndex].classList.remove('active');
+
+                // Move to next concept
+                currentIndex++;
+
+                // If we've shown all concepts, show the navigation buttons
+                if (currentIndex >= concepts.length) {
+                    nextButton.style.display = 'none';
+                    navigationButtons.style.display = 'flex';
+                    finishLesson();
+                    return;
+                }
+
+                // Show next concept
+                concepts[currentIndex].style.display = 'block';
+                setTimeout(() => {
+                    concepts[currentIndex].classList.add('active');
+                }, 50);
+
+                // Update button text for last question
+                if (currentIndex === concepts.length - 1) {
+                    nextButton.innerHTML = 'Finish <i class="fas fa-check"></i>';
+                }
+            });
+
+            // Initially hide the navigation buttons
+            navigationButtons.style.display = 'none';
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Courses - PYTHON PRO</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Light Mode Colors */
+        --bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --card-bg-hover: #f5f7fa;
+        --border: #e0e0e0;
+        --text: #2c3e50;
+        --text-light: #666666;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --shadow: rgba(0, 0, 0, 0.08);
+        --shadow-hover: rgba(0, 0, 0, 0.18);
+        --gradient-start: #2563eb;
+        --gradient-end: #1d4ed8;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          /* Dark Mode Colors */
+          --bg: #181c20;
+          --card-bg: #23272e;
+          --card-bg-hover: #2a2f38;
+          --border: #2d323a;
+          --text: #f3f4f6;
+          --text-light: #cfd8dc;
+          --primary: #4f8cff;
+          --primary-dark: #2563eb;
+          --shadow: rgba(0, 0, 0, 0.2);
+          --shadow-hover: rgba(0, 0, 0, 0.3);
+          --gradient-start: #4f8cff;
+          --gradient-end: #2563eb;
+        }
+      }
+
+      .beginner-courses {
+        padding: 4rem 0;
+        background: var(--bg);
+        position: relative;
+      }
+
+      .beginner-courses::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--border), transparent);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+      }
+
+      .section-header h2 {
+        color: var(--text);
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        border-radius: 2px;
+      }
+
+      .section-header p {
+        color: var(--text-light);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 1.5rem auto 0;
+        line-height: 1.6;
+      }
+
+      .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 0 1rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .course-card {
+        background: var(--card-bg);
+        border: 1.5px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 0 4px 16px var(--shadow);
+        transition: all 0.3s ease;
+        position: relative;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .course-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 32px var(--shadow-hover);
+        border-color: var(--primary);
+        background: var(--card-bg-hover);
+      }
+
+      .course-card:hover::before {
+        opacity: 1;
+      }
+
+      .course-badge {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        color: #fff;
+        padding: 0.35rem 1rem;
+        border-radius: 1rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        z-index: 2;
+        box-shadow: 0 2px 8px var(--shadow);
+      }
+
+      .course-duration {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        color: var(--text-light, #666);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(255,255,255,0.9);
+        padding: 0.2rem 0.7rem;
+        border-radius: 1rem;
+        font-weight: 500;
+        backdrop-filter: blur(4px);
+      }
+
+      .course-duration i {
+        color: var(--primary, #2563eb);
+      }
+
+      .course-title {
+        color: var(--text);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 1rem 0;
+        padding-right: 100px;
+      }
+
+      .course-description {
+        color: var(--text-light);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+      }
+
+      .course-meta {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+
+      .meta-item i {
+        color: var(--primary);
+      }
+
+      .course-progress {
+        margin-bottom: 1.2rem;
+      }
+
+      .progress-bar {
+        height: 7px;
+        background: var(--border, #e0e0e0);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.4rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.3s;
+      }
+
+      .progress-text {
+        color: var(--text-light, #666);
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+        background: var(--primary);
+        color: #fff;
+        text-decoration: none;
+        padding: 0.85rem 0;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.08rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .course-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+      }
+
+      .course-link:hover::before {
+        left: 100%;
+      }
+
+      .course-link:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px var(--shadow-hover);
+      }
+
+      .course-link i {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .course-link:hover i {
+        transform: translateX(4px);
+      }
+
+      @media (max-width: 768px) {
+        .course-grid {
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
+        }
+
+        .course-card {
+          min-height: auto;
+        }
+
+        .section-header h2 {
+          font-size: 2rem;
+        }
+
+        .section-header p {
+          font-size: 1rem;
+        }
+      }
+      .journey-text {
+        display: none;
+      }
+
+      .locked-section {
+        position: relative;
+        filter: blur(2px);
+        pointer-events: none;
+      }
+
+      .lock-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        z-index: 100;
+      }
+
+      .lock-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .lock-message {
+        text-align: center;
+        padding: 1rem;
+        max-width: 400px;
+      }
+
+      .lock-message h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+      }
+
+      .lock-message p {
+        color: #ccc;
+        margin-bottom: 1rem;
+      }
+
+      .unlock-btn {
+          background: var(--primary);
+          color: #fff;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .unlock-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .lock-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .lock-modal-content {
+        background: #ffffff;
+        padding: 3rem;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        border: 3px solid var(--primary);
+        animation: slideUp 0.4s ease;
+        position: relative;
+      }
+
+      .lock-modal-content::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+        border-radius: 22px;
+        z-index: -1;
+        animation: borderGlow 2s infinite;
+      }
+
+      @keyframes borderGlow {
+        0% { opacity: 0.5; }
+        50% { opacity: 1; }
+        100% { opacity: 0.5; }
+      }
+
+      .lock-modal-icon {
+        font-size: 5rem;
+          color: var(--primary);
+        margin-bottom: 2rem;
+        animation: pulse 2s infinite;
+        text-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+
+      .lock-modal h3 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #1a1a1a;
+        font-weight: 800;
+      }
+
+      .lock-modal p {
+        color: #333333;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 0 1rem;
+      }
+
+      .lock-modal-btn {
+        background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+        color: #ffffff;
+        padding: 1.2rem 3rem;
+        border: none;
+        border-radius: 15px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .lock-modal-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+      }
+
+      .lock-modal-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .lock-modal-btn i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .lock-modal-content {
+          background: #1a1f2b;
+        }
+
+        .lock-modal h3 {
+          color: #ffffff;
+        }
+
+        .lock-modal p {
+          color: #e0e0e0;
+        }
+      }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fab fa-python"></i>
+                <span>PYTHON<span class="gradient-text">PRO</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="courses.html" class="active">Courses</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="learn-hero">
+        <div class="hero-content">
+            <h1>Master Python Programming</h1>
+            <div class="journey-text">
+                Start your journey from beginner to professional Python developer with our structured learning path.
+            </div>
+        </div>
+        <div class="learning-path">
+            <div class="path-step">
+                <div class="step-icon"><i class="fas fa-code"></i></div>
+                <div class="step-content">
+                    <h3>Beginner</h3>
+                    <p>Master the fundamentals</p>
+                </div>
+            </div>
+            <div class="path-connector"></div>
+            <div class="path-step">
+                <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                <div class="step-content">
+                    <h3>Intermediate</h3>
+                    <p>Build real applications</p>
+                </div>
+            </div>
+            <div class="path-connector"></div>
+            <div class="path-step">
+                <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                <div class="step-content">
+                    <h3>Advanced</h3>
+                    <p>Become a Python expert</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lock Modal -->
+    <div id="lockModal" class="lock-modal">
+        <div class="lock-modal-content">
+            <i class="fas fa-lock lock-modal-icon"></i>
+            <h3>Course Locked 🔒</h3>
+            <p id="lockModalMessage">Please complete the beginner course first to unlock this content.</p>
+            <button class="lock-modal-btn" onclick="goToBeginner()">
+                <i class="fas fa-arrow-right"></i>
+                Start Beginner Course
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="learn-content">
+        <div class="section-header">
+            <h2>Our Courses</h2>
+            <p>Choose from our comprehensive range of Python courses</p>
+        </div>
+
+        <div class="course-navigation">
+            <button class="course-nav-btn" data-section="beginner">Beginner Courses</button>
+            <button class="course-nav-btn" data-section="intermediate">Intermediate Courses</button>
+            <button class="course-nav-btn" data-section="advanced">Advanced Courses</button>
+        </div>
+
+        <!-- Beginner Courses Section -->
+        <section class="beginner-courses">
+            <div class="section-header">
+                <h2>Beginner Courses</h2>
+                <p>Start your Python journey with our comprehensive beginner courses</p>
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <span class="course-badge">Beginner</span>
+                    <h3 class="course-title">Python Fundamentals</h3>
+                    <p class="course-description">Master the basics of Python programming with our comprehensive course covering variables, data types, operators, and basic input/output operations.</p>
+                    <div class="course-meta">
+                        <span class="meta-item"><i class="fas fa-book"></i> 10 Lessons</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                    </div>
+                    <a href="beginner.html" class="course-link">
+                        Start Learning <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="course-card">
+                    <span class="course-badge">Beginner</span>
+                    <h3 class="course-title">Data Types & Structures</h3>
+                    <p class="course-description">Explore Python's core data types and structures. Learn about numbers, strings, lists, tuples, dictionaries, and sets with practical examples.</p>
+                    <div class="course-meta">
+                        <span class="meta-item"><i class="fas fa-book"></i> 10 Lessons</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                    </div>
+                    <a href="data-types.html" class="course-link">
+                        Start Learning <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="course-card">
+                    <span class="course-badge">Beginner</span>
+                    <h3 class="course-title">Control Flow</h3>
+                    <p class="course-description">Learn about conditionals, loops, and control structures in Python. Master if-else statements, loops, and exception handling.</p>
+                    <div class="course-meta">
+                        <span class="meta-item"><i class="fas fa-book"></i> 10 Lessons</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                    </div>
+                    <a href="control-flow.html" class="course-link">
+                        Start Learning <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="course-card">
+                    <span class="course-badge">Beginner</span>
+                    <h3 class="course-title">Functions & Modules</h3>
+                    <p class="course-description">Master Python functions and modules. Learn about function definition, parameters, return values, and module organization.</p>
+                    <div class="course-meta">
+                        <span class="meta-item"><i class="fas fa-book"></i> 10 Lessons</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                    </div>
+                    <a href="functions.html" class="course-link">
+                        Start Learning <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intermediate Topics -->
+        <section id="intermediate" class="topics-section locked-section">
+            <div class="lock-overlay">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="lock-message">
+                    <h3>Complete Beginner Course First</h3>
+                    <p>To access intermediate courses, you need to complete the beginner course. This ensures you have the necessary foundation to succeed.</p>
+                    <a href="#beginner" class="unlock-btn">Start Beginner Course</a>
+                </div>
+            </div>
+            <div class="topics-grid">
+                <div class="topic-card intermediate">
+                    <div class="topic-header">
+                        <div class="topic-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="topic-meta">
+                            <span class="difficulty-badge intermediate">Intermediate</span>
+                            <span class="time-badge"><i class="far fa-clock"></i> 6 hours</span>
+                        </div>
+                    </div>
+                    <h3>Object-Oriented Programming</h3>
+                    <p>Learn classes, objects, and OOP principles. Build scalable applications.</p>
+                    <div class="topic-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="topic-footer">
+                        <a href="oop.html" class="start-learning">
+                            Start Learning
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <button class="bookmark-btn" aria-label="Bookmark">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="topic-card intermediate">
+                    <div class="topic-header">
+                        <div class="topic-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <div class="topic-meta">
+                            <span class="difficulty-badge intermediate">Intermediate</span>
+                            <span class="time-badge"><i class="far fa-clock"></i> 4 hours</span>
+                        </div>
+                    </div>
+                    <h3>Modules & Packages</h3>
+                    <p>Organize code with modules and create packages. Share your code with others.</p>
+                    <div class="topic-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="topic-footer">
+                        <a href="modules.html" class="start-learning">
+                            Start Learning
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <button class="bookmark-btn" aria-label="Bookmark">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Topics -->
+        <section id="advanced" class="topics-section locked-section">
+            <div class="lock-overlay">
+                <i class="fas fa-lock lock-icon"></i>
+                <div class="lock-message">
+                    <h3>Complete Intermediate Course First</h3>
+                    <p>To access advanced courses, you need to complete the intermediate course. This ensures you're ready for advanced concepts.</p>
+                    <a href="#intermediate" class="unlock-btn">Start Intermediate Course</a>
+                </div>
+            </div>
+            <div class="topics-grid">
+                <div class="topic-card advanced">
+                    <div class="topic-header">
+                        <div class="topic-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="topic-meta">
+                            <span class="difficulty-badge advanced">Advanced</span>
+                            <span class="time-badge"><i class="far fa-clock"></i> 8 hours</span>
+                        </div>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Build web applications with Flask and Django. Create RESTful APIs and dynamic websites.</p>
+                    <div class="topic-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="topic-footer">
+                        <a href="web-dev.html" class="start-learning">
+                            Start Learning
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <button class="bookmark-btn" aria-label="Bookmark">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="topic-card advanced">
+                    <div class="topic-header">
+                        <div class="topic-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="topic-meta">
+                            <span class="difficulty-badge advanced">Advanced</span>
+                            <span class="time-badge"><i class="far fa-clock"></i> 10 hours</span>
+                        </div>
+                    </div>
+                    <h3>Machine Learning</h3>
+                    <p>Introduction to machine learning with Python. Build and train your first models.</p>
+                    <div class="topic-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="topic-footer">
+                        <a href="ml.html" class="start-learning">
+                            Start Learning
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <button class="bookmark-btn" aria-label="Bookmark">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PYTHON PRO</h3>
+                <p>Your journey to Python mastery starts here.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="courses.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PYTHON PRO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to show a section
+            function showSection(sectionId) {
+                // Hide all sections first
+                const sections = document.querySelectorAll('.topics-section, .beginner-courses');
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Show the selected section
+                if (sectionId === 'beginner') {
+                    const beginnerSection = document.querySelector('.beginner-courses');
+                    if (beginnerSection) {
+                        beginnerSection.style.display = 'block';
+                        beginnerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } else {
+                    const sectionToShow = document.getElementById(sectionId);
+                    if (sectionToShow) {
+                        sectionToShow.style.display = 'block';
+                        sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            // Function to show lock modal
+            function showLockModal(message) {
+                const modal = document.getElementById('lockModal');
+                const messageElement = document.getElementById('lockModalMessage');
+                messageElement.textContent = message;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Function to hide lock modal
+            function hideLockModal() {
+                const modal = document.getElementById('lockModal');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
+            // Function to go to beginner course
+            window.goToBeginner = function() {
+                hideLockModal();
+                showSection('beginner');
+            }
+
+            // Add click event listeners to navigation buttons
+            const navButtons = document.querySelectorAll('.course-nav-btn');
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    console.log('Button clicked:', sectionId); // Debug log
+                    
+                    if (sectionId === 'intermediate') {
+                        showLockModal('To access intermediate courses, you need to complete the beginner course first. This ensures you have the necessary foundation to succeed.');
+                    } else if (sectionId === 'advanced') {
+                        showLockModal('To access advanced courses, you need to complete the intermediate course first. This ensures you\'re ready for advanced concepts.');
+                    } else if (sectionId === 'beginner') {
+                        showSection('beginner');
+                    }
+                });
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('lockModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideLockModal();
+                }
+            });
+
+            // Show beginner section by default
+            showSection('beginner');
+        });
+    </script>
+</body>
+</html> 

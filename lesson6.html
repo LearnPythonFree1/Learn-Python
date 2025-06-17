@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: Input and Output in Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lesson-title i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: relative;
+            display: none;
+        }
+
+        .concept-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .concept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .concept-number {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-number i {
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .concept-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .concept-answer {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-answer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-title i {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .answer-text {
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
+
+        .explanation {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-example::before {
+            content: 'Python';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .tip-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-box i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-text {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .concept-container {
+                padding: 1.5rem;
+            }
+
+            .concept-question {
+                font-size: 1.2rem;
+            }
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .prev-button {
+            background: var(--light);
+            color: var(--text);
+        }
+
+        .next-button {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <h1 class="lesson-title">
+                <i class="fas fa-terminal"></i>
+                Lesson 6: Input and Output in Python
+            </h1>
+            <p class="lesson-description">
+                Learn how to handle user input and display output in Python programs. Master the art of creating interactive applications and formatting output effectively.
+            </p>
+            <div class="lesson-stats">
+                <div class="stat-item">
+                    <i class="far fa-clock"></i>
+                    <span>45 minutes</span>
+                </div>
+                <div class="stat-item">
+                    <i class="far fa-file-alt"></i>
+                    <span>5 concepts</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-code"></i>
+                    <span>8 examples</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-keyboard"></i>
+                    Concept 1: Basic Input and Output
+                </div>
+            </div>
+            <div class="concept-question">
+                How do we get input from users and display output in Python?
+            </div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Understanding Input and Output
+                </div>
+                <div class="answer-text">
+                    Python provides built-in functions for handling input and output:
+                    - input() for getting user input
+                    - print() for displaying output
+                </div>
+                <div class="code-example">
+                    <pre>
+# Getting user input
+name = input("Enter your name: ")
+print(f"Hello, {name}!")
+
+# Basic output formatting
+age = input("Enter your age: ")
+print("You are", age, "years old")
+print(f"You will be {int(age) + 1} years old next year")</pre>
+                </div>
+                <div class="explanation">
+                    The input() function always returns a string. If you need a number, you'll need to convert it using int() or float().
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-sliders-h"></i>
+                    Concept 2: String Formatting
+                </div>
+            </div>
+            <div class="concept-question">
+                What are the different ways to format strings in Python?
+            </div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    String Formatting Methods
+                </div>
+                <div class="answer-text">
+                    Python offers multiple ways to format strings:
+                    1. f-strings (Python 3.6+)
+                    2. .format() method
+                    3. % operator (old style)
+                </div>
+                <div class="code-example">
+                    <pre>
+# f-strings (recommended)
+name = "Alice"
+age = 25
+print(f"{name} is {age} years old")
+
+# .format() method
+print("{} is {} years old".format(name, age))
+
+# % operator
+print("%s is %d years old" % (name, age))</pre>
+                </div>
+                <div class="tip-box">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="tip-content">
+                        <div class="tip-title">Pro Tip</div>
+                        <div class="tip-text">
+                            f-strings are the most readable and efficient way to format strings in modern Python. They're also faster than other formatting methods.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-file-alt"></i>
+                    Concept 3: File Input/Output
+                </div>
+            </div>
+            <div class="concept-question">
+                How do we read from and write to files in Python?
+            </div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    File Operations
+                </div>
+                <div class="answer-text">
+                    Python provides built-in functions for file operations:
+                    - open() to open files
+                    - read() to read file contents
+                    - write() to write to files
+                    - close() to close files
+                </div>
+                <div class="code-example">
+                    <pre>
+# Writing to a file
+with open('example.txt', 'w') as file:
+    file.write('Hello, World!')
+
+# Reading from a file
+with open('example.txt', 'r') as file:
+    content = file.read()
+    print(content)</pre>
+                </div>
+                <div class="explanation">
+                    Using the 'with' statement is the recommended way to handle files as it automatically closes the file when done.
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-table"></i>
+                    Concept 4: Formatted Output
+                </div>
+            </div>
+            <div class="concept-question">
+                How can we create well-formatted, aligned output?
+            </div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Formatting Output
+                </div>
+                <div class="answer-text">
+                    Python provides several ways to format output:
+                    - String alignment
+                    - Number formatting
+                    - Table-like output
+                </div>
+                <div class="code-example">
+                    <pre>
+# String alignment
+print(f"{'Name':<10} {'Age':>5}")
+print(f"{'Alice':<10} {25:>5}")
+print(f"{'Bob':<10} {30:>5}")
+
+# Number formatting
+pi = 3.14159
+print(f"Pi rounded to 2 decimal places: {pi:.2f}")
+
+# Table-like output
+print("-" * 20)
+print(f"|{'Name':^8}|{'Age':^8}|")
+print("-" * 20)
+print(f"|{'Alice':^8}|{25:^8}|")
+print(f"|{'Bob':^8}|{30:^8}|")
+print("-" * 20)</pre>
+                </div>
+                <div class="tip-box">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="tip-content">
+                        <div class="tip-title">Pro Tip</div>
+                        <div class="tip-text">
+                            Use string formatting to create professional-looking output. The ^, <, and > characters help align text center, left, and right respectively.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-shield-alt"></i>
+                    Concept 5: Input Validation
+                </div>
+            </div>
+            <div class="concept-question">
+                How do we validate and handle user input safely?
+            </div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Input Validation
+                </div>
+                <div class="answer-text">
+                    Always validate user input to prevent errors and ensure data integrity:
+                    - Check data types
+                    - Validate ranges
+                    - Handle exceptions
+                </div>
+                <div class="code-example">
+                    <pre>
+# Input validation example
+while True:
+    try:
+        age = int(input("Enter your age: "))
+        if 0 <= age <= 120:
+            break
+        else:
+            print("Please enter a valid age between 0 and 120")
+    except ValueError:
+        print("Please enter a valid number")
+
+print(f"Your age is: {age}")
+
+# File input validation
+try:
+    with open('nonexistent.txt', 'r') as file:
+        content = file.read()
+except FileNotFoundError:
+    print("File not found!")
+except PermissionError:
+    print("Permission denied!")
+except Exception as e:
+    print(f"An error occurred: {e}")</pre>
+                </div>
+                <div class="explanation">
+                    Always use try-except blocks when dealing with user input or file operations to handle potential errors gracefully.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="navigation-buttons">
+            <button class="nav-button prev-button" id="prevButton" disabled>
+                <i class="fas fa-arrow-left"></i>
+                Previous
+            </button>
+            <div class="progress-indicator">
+                <span id="currentConcept">1</span> of <span id="totalConcepts">5</span>
+                <div class="progress-dots" id="progressDots"></div>
+            </div>
+            <button class="nav-button next-button" id="nextButton">
+                Next
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle concept navigation
+        let currentConceptIndex = 0;
+        const concepts = document.querySelectorAll('.concept-container');
+        const totalConcepts = concepts.length;
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const currentConceptSpan = document.getElementById('currentConcept');
+        const totalConceptsSpan = document.getElementById('totalConcepts');
+        const progressDots = document.getElementById('progressDots');
+
+        // Initialize progress dots
+        function initializeProgressDots() {
+            for (let i = 0; i < totalConcepts; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i === 0) dot.classList.add('active');
+                progressDots.appendChild(dot);
+            }
+        }
+
+        // Update navigation state
+        function updateNavigation() {
+            prevButton.disabled = currentConceptIndex === 0;
+            nextButton.disabled = currentConceptIndex === totalConcepts - 1;
+            currentConceptSpan.textContent = currentConceptIndex + 1;
+            
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentConceptIndex);
+            });
+        }
+
+        // Show current concept
+        function showCurrentConcept() {
+            concepts.forEach((concept, index) => {
+                if (index === currentConceptIndex) {
+                    concept.classList.add('active');
+                    concept.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    concept.classList.remove('active');
+                }
+            });
+            updateNavigation();
+        }
+
+        // Event listeners for navigation
+        prevButton.addEventListener('click', () => {
+            if (currentConceptIndex > 0) {
+                currentConceptIndex--;
+                showCurrentConcept();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentConceptIndex < totalConcepts - 1) {
+                currentConceptIndex++;
+                showCurrentConcept();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeProgressDots();
+            showCurrentConcept();
+            totalConceptsSpan.textContent = totalConcepts;
+        });
+    </script>
+</body>
+</html> 

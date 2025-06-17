@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Functions | Learn Python Programming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #fafafa;
+            --border: #e5e7eb;
+            --success: #059669;
+            --radius: 0.5rem;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --transition: all 0.2s ease;
+            --gradient-start: #2563eb;
+            --gradient-end: #1d4ed8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #60a5fa;
+                --primary-dark: #3b82f6;
+                --primary-light: #1e3a8a;
+                --text: #f3f4f6;
+                --text-light: #d1d5db;
+                --bg: #111827;
+                --bg-alt: #1f2937;
+                --border: #374151;
+                --gradient-start: #60a5fa;
+                --gradient-end: #3b82f6;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--primary-light) 0%, transparent 50%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .lessons {
+            padding: 4rem 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .lessons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+        }
+
+        .lessons-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .lessons-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .lessons-description {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .lesson-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            background: var(--bg);
+        }
+
+        .lesson-number {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            border-radius: 1rem;
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lesson-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            background: var(--bg-alt);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .code-example {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-example pre {
+            margin: 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .lesson-objectives {
+            margin-top: 1.5rem;
+        }
+
+        .lesson-objectives h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lesson-objectives li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .lesson-objectives li:before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Remove navbar styles */
+        .navbar {
+            display: none;
+        }
+        .navbar-section {
+            display: none;
+        }
+        .nav-links {
+            display: none;
+        }
+        .login-btn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Remove navbar HTML -->
+    <!-- <header>
+        <nav class="navbar">
+            <div class="navbar-section left">
+                <a href="index.html" class="logo">
+                    <i class="fab fa-python"></i>
+                    <span>PYTHON<span class="gradient-text">PRO</span></span>
+                </a>
+            </div>
+            <div class="navbar-section center">
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="about.html">About</a>
+                </div>
+            </div>
+            <div class="navbar-section right">
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+        </nav>
+    </header> -->
+
+    <section class="hero">
+        <div class="container">
+            <h1>Python Functions</h1>
+            <p>Master the art of writing reusable and efficient code with Python functions. Learn everything from basic function definitions to advanced concepts like decorators and recursion.</p>
+        </div>
+    </section>
+
+    <section class="lessons">
+        <div class="container">
+            <div class="lessons-header">
+                <h2 class="lessons-title">Course Lessons</h2>
+                <p class="lessons-description">8 comprehensive lessons to master Python functions</p>
+            </div>
+
+            <div class="lessons-grid">
+                <!-- Lesson 1 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 1</span>
+                        <h3 class="lesson-title">Introduction to Functions</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Learn the fundamentals of Python functions and how they help organize and reuse code effectively.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 30 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 3 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Basic function definition
+def greet(name):
+    """Return a greeting message."""
+    return f"Hello, {name}!"
+
+# Function with multiple parameters
+def calculate_area(length, width):
+    """Calculate the area of a rectangle."""
+    return length * width
+
+# Function with default parameter
+def greet_user(name="Guest"):
+    """Greet a user with a default name."""
+    return f"Welcome, {name}!"</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Understanding function definition and syntax</li>
+                                <li>Basic function calls and return values</li>
+                                <li>Function naming conventions</li>
+                                <li>Writing docstrings for documentation</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a function that calculates the volume of a cube.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def calculate_cube_volume(side):
+    """Calculate the volume of a cube."""
+    return side ** 3</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.1.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 2</span>
+                        <h3 class="lesson-title">Function Parameters</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Master different types of parameters and learn how to use them effectively in your functions.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 45 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 4 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Required parameters
+def add(x, y):
+    """Add two numbers."""
+    return x + y
+
+# Default parameters
+def greet(name, greeting="Hello"):
+    """Greet with custom message."""
+    return f"{greeting}, {name}!"
+
+# Variable arguments
+def sum_all(*args):
+    """Sum all provided numbers."""
+    return sum(args)
+
+# Keyword arguments
+def create_profile(**kwargs):
+    """Create a user profile."""
+    return kwargs</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Required vs optional parameters</li>
+                                <li>Default parameter values</li>
+                                <li>Variable arguments (*args)</li>
+                                <li>Keyword arguments (**kwargs)</li>
+                                <li>Parameter order and best practices</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a function that can calculate the average of any number of values.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def calculate_average(*numbers):
+    """Calculate the average of provided numbers."""
+    return sum(numbers) / len(numbers) if numbers else 0</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.2.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 3</span>
+                        <h3 class="lesson-title">Return Values and Multiple Returns</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Learn how to effectively use return values and handle multiple return scenarios.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 40 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 3 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Single return value
+def square(number):
+    """Return the square of a number."""
+    return number ** 2
+
+# Multiple return values
+def get_coordinates():
+    """Return x and y coordinates."""
+    return 10, 20
+
+# Conditional returns
+def absolute_value(number):
+    """Return the absolute value."""
+    if number >= 0:
+        return number
+    return -number</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Understanding return statements</li>
+                                <li>Returning multiple values</li>
+                                <li>Conditional returns</li>
+                                <li>Return value unpacking</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a function that returns both the quotient and remainder of a division.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def divide_with_remainder(dividend, divisor):
+    """Return quotient and remainder."""
+    return dividend // divisor, dividend % divisor</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.3.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 4</span>
+                        <h3 class="lesson-title">Lambda Functions</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Learn about anonymous functions and their practical applications in Python.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 35 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 3 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Basic lambda function
+square = lambda x: x ** 2
+
+# Lambda with multiple arguments
+multiply = lambda x, y: x * y
+
+# Using lambda with built-in functions
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+
+# Lambda with conditional expression
+absolute = lambda x: x if x >= 0 else -x</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Understanding lambda function syntax</li>
+                                <li>Using lambda with built-in functions</li>
+                                <li>When to use lambda functions</li>
+                                <li>Best practices and limitations</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a lambda function that checks if a number is even.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>is_even = lambda x: x % 2 == 0</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.4.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 5</span>
+                        <h3 class="lesson-title">Function Scope</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Understand variable scope and how it affects your functions.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 40 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 4 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Global variable
+x = 10
+
+def my_function():
+    # Local variable
+    y = 20
+    print(f"Inside function: x = {x}, y = {y}")
+
+# Using global keyword
+def modify_global():
+    global x
+    x = 30
+    print(f"Modified global x: {x}")
+
+# Nested functions
+def outer():
+    z = 50
+    def inner():
+        print(f"Accessing z from inner: {z}")
+    inner()</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Global vs local scope</li>
+                                <li>Using the global keyword</li>
+                                <li>Nested functions and scope</li>
+                                <li>Variable lifetime and memory management</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a counter function that maintains its count between calls.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def create_counter():
+    count = 0
+    def counter():
+        nonlocal count
+        count += 1
+        return count
+    return counter</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.5.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 6</span>
+                        <h3 class="lesson-title">Recursion</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Learn about recursive functions and how to implement them in Python.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 45 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Intermediate</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 4 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Factorial using recursion
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+
+# Fibonacci sequence
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Binary search
+def binary_search(arr, target, low, high):
+    if low > high:
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return binary_search(arr, target, low, mid-1)
+    else:
+        return binary_search(arr, target, mid+1, high)</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Understanding recursion</li>
+                                <li>Base cases and recursive cases</li>
+                                <li>Common recursive patterns</li>
+                                <li>Recursion vs iteration</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Implement a recursive function to calculate the sum of digits in a number.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def sum_digits(n):
+    if n < 10:
+        return n
+    return n % 10 + sum_digits(n // 10)</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.7.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Lesson 7 -->
+                <div class="lesson-card">
+                    <div class="lesson-header">
+                        <span class="lesson-number">Lesson 7</span>
+                        <h3 class="lesson-title">Decorators</h3>
+                        <button class="expand-lesson-btn">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="lesson-description">Master function decorators and their powerful applications in Python.</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item"><i class="far fa-clock"></i> 50 mins</span>
+                        <span class="meta-item"><i class="fas fa-signal"></i> Intermediate</span>
+                        <span class="meta-item"><i class="fas fa-tasks"></i> 3 Exercises</span>
+                    </div>
+                    <div class="lesson-content hidden">
+                        <div class="code-example">
+                            <pre><code># Basic decorator
+def timer(func):
+    def wrapper(*args, **kwargs):
+        import time
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Function took {end - start} seconds")
+        return result
+    return wrapper
+
+# Decorator with arguments
+def repeat(times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+
+# Using decorators
+@timer
+def slow_function():
+    import time
+    time.sleep(1)
+    return "Done!"
+
+@repeat(times=3)
+def greet(name):
+    print(f"Hello, {name}!")</code></pre>
+                        </div>
+                        <div class="lesson-objectives">
+                            <h3>Learning Objectives:</h3>
+                            <ul>
+                                <li>Understanding decorator syntax</li>
+                                <li>Creating custom decorators</li>
+                                <li>Decorators with arguments</li>
+                                <li>Common decorator patterns</li>
+                            </ul>
+                        </div>
+                        <div class="practice-exercises">
+                            <h3>Practice Exercises:</h3>
+                            <div class="exercise">
+                                <p>1. Create a decorator that caches function results.</p>
+                                <button class="show-solution">Show Solution</button>
+                                <div class="solution hidden">
+                                    <pre><code>def cache(func):
+    cache = {}
+    def wrapper(*args, **kwargs):
+        key = str(args) + str(kwargs)
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+    return wrapper</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="lesson4.8.html" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Add new styles for improved lessons */
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .expand-lesson-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-lesson-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .lesson-content {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .lesson-content.hidden {
+            display: none;
+        }
+
+        .lesson-content {
+            margin-top: 1.5rem;
+        }
+
+        .practice-exercises {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .practice-exercises h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .exercise {
+            background: var(--bg-alt);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+        }
+
+        .exercise p {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .show-solution {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .show-solution:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .solution {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .solution.hidden {
+            display: none;
+        }
+
+        .lesson-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            background: var(--bg-alt);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .lesson-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+
+    <script>
+        // Handle expand/collapse functionality
+        document.querySelectorAll('.expand-lesson-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const lessonCard = button.closest('.lesson-card');
+                const content = lessonCard.querySelector('.lesson-content');
+                const icon = button.querySelector('i');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+
+        // Handle show/hide solution functionality
+        document.querySelectorAll('.show-solution').forEach(button => {
+            button.addEventListener('click', () => {
+                const solution = button.nextElementSibling;
+                solution.classList.toggle('hidden');
+                button.textContent = solution.classList.contains('hidden') ? 'Show Solution' : 'Hide Solution';
+            });
+        });
+
+        // Add click event listener to lesson links
+        document.querySelectorAll('.lesson-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href === '#' || !href) {
+                    e.preventDefault();
+                    alert('This lesson is coming soon!');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

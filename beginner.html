@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python for Beginners | Learn Python Programming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #fafafa;
+            --border: #e5e7eb;
+            --success: #059669;
+            --radius: 0.5rem;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --transition: all 0.2s ease;
+            --gradient-start: #2563eb;
+            --gradient-end: #1d4ed8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #60a5fa;
+                --primary-dark: #3b82f6;
+                --primary-light: #1e3a8a;
+                --text: #f3f4f6;
+                --text-light: #d1d5db;
+                --bg: #111827;
+                --bg-alt: #1f2937;
+                --border: #374151;
+                --gradient-start: #60a5fa;
+                --gradient-end: #3b82f6;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            display: none;
+        }
+
+        .nav {
+            display: none;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--primary-light) 0%, transparent 50%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .lessons {
+            padding: 4rem 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .lessons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+        }
+
+        .lessons-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .lessons-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .lessons-description {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .lesson-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            background: var(--bg);
+        }
+
+        .lesson-number {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            border-radius: 1rem;
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover {
+            background: var(--primary);
+            color: var(--bg);
+            transform: translateX(4px);
+        }
+
+        .lesson-link i {
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        footer {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+        }
+
+        .courses {
+            padding: 4rem 0;
+            background: var(--bg);
+        }
+
+        .courses h2 {
+            color: var(--text);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .course-card {
+            background: var(--bg-alt);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-level {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .course-title {
+            color: var(--text);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-right: 100px;
+        }
+
+        .course-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .course-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .course-features li {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .course-features li i {
+            color: var(--primary);
+        }
+
+        .course-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .course-link:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .courses {
+                background: var(--bg);
+            }
+
+            .course-card {
+                background: var(--bg-alt);
+                border-color: var(--primary);
+            }
+
+            .course-title {
+                color: var(--text);
+            }
+
+            .course-description {
+                color: var(--text-light);
+            }
+
+            .course-features li {
+                color: var(--text);
+            }
+
+            .course-features li i {
+                color: var(--primary);
+            }
+
+            .course-link {
+                background: var(--primary);
+                color: white;
+            }
+
+            .course-link:hover {
+                background: var(--primary-dark);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Start Your Python Journey</h1>
+                <p>Master the fundamentals of Python programming with our comprehensive beginner's course. Perfect for those new to coding, with clear explanations and hands-on practice.</p>
+            </div>
+        </section>
+
+        <section class="lessons">
+            <div class="container">
+                <div class="lessons-header">
+                    <h2 class="lessons-title">Course Lessons</h2>
+                    <p class="lessons-description">Follow our structured learning path to build your Python skills step by step.</p>
+                </div>
+                <div class="lessons-grid" id="lessonsGrid">
+                    <!-- Lessons will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Python Learning. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample lesson data - Replace this with your actual lesson data
+        const lessons = [
+            {
+                id: 1,
+                title: "Lesson 1: Introduction to Python",
+                description: "Learn what Python is, why it's popular, and how to set up your development environment. Perfect for absolute beginners.",
+                duration: "20 min",
+                url: "lesson1.html"
+            },
+            {
+                id: 2,
+                title: "Lesson 2: Python Syntax & Basics",
+                description: "Master the fundamental syntax rules of Python and learn the basic programming concepts.",
+                duration: "25 min",
+                url: "lesson2.html"
+            },
+            {
+                id: 3,
+                title: "Lesson 3: Variables and Data Types",
+                description: "Learn about different data types in Python and how to work with variables effectively.",
+                duration: "30 min",
+                url: "lesson3.html"
+            },
+            {
+                id: 4,
+                title: "Lesson 4: Operators in Python",
+                description: "Master arithmetic, comparison, and logical operators in Python programming.",
+                duration: "35 min",
+                url: "lesson4.html"
+            },
+            {
+                id: 5,
+                title: "Lesson 5: Strings in Python",
+                description: "Learn string manipulation, formatting, and common string operations in Python.",
+                duration: "40 min",
+                url: "lesson5.html"
+            },
+            {
+                id: 6,
+                title: "Lesson 6: Input and Output",
+                description: "Master user input handling and output formatting in Python programs.",
+                duration: "45 min",
+                url: "lesson6.html"
+            }
+        ];
+
+        // Function to render lessons
+        function renderLessons() {
+            const grid = document.getElementById('lessonsGrid');
+            
+            // Sort lessons by ID to maintain sequence
+            const sortedLessons = [...lessons].sort((a, b) => a.id - b.id);
+            
+            // Clear existing content
+            grid.innerHTML = '';
+            
+            // Render each lesson
+            sortedLessons.forEach((lesson, index) => {
+                const card = document.createElement('article');
+                card.className = 'lesson-card fade-in';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                card.innerHTML = `
+                    <div class="lesson-number">Lesson ${lesson.id}</div>
+                    <h3 class="lesson-title">${lesson.title}</h3>
+                    <p class="lesson-description">${lesson.description}</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item">
+                            <i class="far fa-clock"></i>
+                            ${lesson.duration}
+                        </span>
+                    </div>
+                    <a href="${lesson.url}" class="lesson-link">
+                        Start lesson <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLessons();
+            
+            // Add scroll animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.lesson-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Methods - Python Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--background-color); color: var(--text-color); line-height: 1.6; }
+        .lesson-container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .lesson-header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+        .lesson-header h1 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem; }
+        .lesson-description { color: var(--secondary-color); font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+        .lesson-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; color: var(--secondary-color); }
+        .lesson-stats span { display: flex; align-items: center; gap: 0.5rem; }
+        .concept-container { background: var(--card-background); border-radius: var(--border-radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow); display: none; }
+        .concept-container.active { display: block; }
+        .concept h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.5rem; }
+        .definition { background: #f8f9fa; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .definition h4 { color: var(--secondary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .explanation { background: #f0f7ff; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .explanation h4 { color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .code-example { background: #2d2d2d; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; position: relative; }
+        .code-example pre { color: #fff; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .copy-btn { position: absolute; top: 1rem; right: 1rem; background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .copy-btn:hover { background-color: #357abd; }
+        .concept-navigation { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .concept-nav-btn { background: var(--primary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background-color 0.3s; }
+        .concept-nav-btn:hover { background-color: #357abd; }
+        .concept-nav-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        @media (max-width: 768px) { .lesson-container { padding: 1rem; } .lesson-header { padding: 1.5rem; } .lesson-header h1 { font-size: 2rem; } .lesson-stats { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>String Methods</h1>
+            <p class="lesson-description">Learn how to manipulate and work with strings in Python using built-in methods.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 20 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Data Types</span>
+            </div>
+        </div>
+        <div class="concept-container active" data-concept="1">
+            <h2>What are String Methods?</h2>
+            <div class="concept">
+                <h3>Definition and Purpose</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>String methods are built-in functions that perform operations on strings, such as changing case, removing whitespace, or finding substrings.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>String methods help you manipulate text easily, like turning a sentence into uppercase or splitting a string into words.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>text = "Hello, World!"
+print(text.upper())  # HELLO, WORLD!
+print(text.lower())  # hello, world!</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to use string methods to change the case of a string.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="2">
+            <h2>Common String Methods</h2>
+            <div class="concept">
+                <h3>How to use string methods?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Common string methods include upper(), lower(), strip(), split(), join(), replace(), find(), and count().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>These methods let you perform tasks like removing extra spaces, splitting text into parts, or counting occurrences of a substring.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>text = "  Hello, World!  "
+print(text.strip())  # "Hello, World!"
+
+words = text.split(",")  # ["  Hello", " World!  "]
+print(words)
+
+new_text = text.replace("World", "Python")
+print(new_text)  # "  Hello, Python!  "</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates common string methods in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="3">
+            <h2>Finding and Counting</h2>
+            <div class="concept">
+                <h3>How to find substrings?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The find() method returns the index of the first occurrence of a substring, and count() returns the number of occurrences.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use find() to locate a word in a sentence, and count() to see how many times it appears.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>text = "Hello, World! Hello, Python!"
+print(text.find("Hello"))  # 0
+print(text.count("Hello"))  # 2</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to find and count substrings in a string.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="4">
+            <h2>Joining Strings</h2>
+            <div class="concept">
+                <h3>How to join strings?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The join() method combines a list of strings into a single string, using a specified separator.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use join() to create a sentence from a list of words, or to build a path from directory names.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>words = ["Hello", "World", "Python"]
+sentence = " ".join(words)
+print(sentence)  # "Hello World Python"</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to join a list of strings into a single string.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="5">
+            <h2>Replacing Substrings</h2>
+            <div class="concept">
+                <h3>How to replace parts of a string?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The replace() method replaces all occurrences of a substring with another substring.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use replace() to change words in a sentence or to clean up text.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>text = "Hello, World! Hello, Python!"
+new_text = text.replace("Hello", "Hi")
+print(new_text)  # "Hi, World! Hi, Python!"</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to replace substrings in a string.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="6">
+            <h2>Practice Exercise: Text Cleaner</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A text cleaner program that uses string methods to clean and format user input.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines multiple string methods to create a useful text processing tool.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def text_cleaner():
+    text = input("Enter some text: ")
+    cleaned = text.strip().lower()
+    print("Cleaned text:", cleaned)
+    print("Word count:", len(cleaned.split()))
+    print("Uppercase:", cleaned.upper())
+    print("Replaced 'a' with 'x':", cleaned.replace("a", "x"))
+
+text_cleaner()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise lets you practice using string methods to clean and format text.</p>
+            </div>
+        </div>
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        let currentConcept = 1;
+        const totalConcepts = 6;
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            prevBtn.disabled = currentConcept === 1;
+            nextBtn.disabled = currentConcept === totalConcepts;
+        }
+        function showConcept(conceptNumber) {
+            document.querySelectorAll('.concept-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            const concept = document.querySelector(`[data-concept="${conceptNumber}"]`);
+            if (concept) {
+                concept.classList.add('active');
+            }
+            currentConcept = conceptNumber;
+            updateNavigation();
+        }
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 1) {
+                showConcept(currentConcept - 1);
+            }
+        });
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < totalConcepts) {
+                showConcept(currentConcept + 1);
+            }
+        });
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showConcept(1);
+        });
+    </script>
+</body>
+</html> 

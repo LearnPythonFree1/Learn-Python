@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Data Types | Learn Python Programming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #fafafa;
+            --border: #e5e7eb;
+            --success: #059669;
+            --radius: 0.5rem;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --transition: all 0.2s ease;
+            --gradient-start: #2563eb;
+            --gradient-end: #1d4ed8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #60a5fa;
+                --primary-dark: #3b82f6;
+                --primary-light: #1e3a8a;
+                --text: #f3f4f6;
+                --text-light: #d1d5db;
+                --bg: #111827;
+                --bg-alt: #1f2937;
+                --border: #374151;
+                --gradient-start: #60a5fa;
+                --gradient-end: #3b82f6;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--primary-light) 0%, transparent 50%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .lessons {
+            padding: 4rem 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .lessons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+        }
+
+        .lessons-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .lessons-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .lessons-description {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .lesson-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            background: var(--bg);
+        }
+
+        .lesson-number {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            border-radius: 1rem;
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Python Data Types</h1>
+            <p>Master the fundamental data types in Python and learn how to work with them effectively. From numbers and strings to lists and dictionaries, understand how to store and manipulate different kinds of data.</p>
+        </div>
+
+        <div class="lessons">
+            <div class="lessons-header">
+                <h2 class="lessons-title">Available Lessons</h2>
+                <p class="lessons-description">Start with the basics and progress through our comprehensive data types curriculum</p>
+            </div>
+
+            <div class="lessons-grid" id="lessonsGrid">
+                <!-- Lessons will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lessons = [
+            {
+                title: "Numbers and Strings",
+                description: "Learn about numeric types (integers, floats) and string manipulation in Python.",
+                duration: "15 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.1.html"
+            },
+            {
+                title: "Lists and Tuples",
+                description: "Understand ordered collections and their differences in Python.",
+                duration: "20 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.2.html"
+            },
+            {
+                title: "Dictionaries and Sets",
+                description: "Master key-value pairs and unique collections in Python.",
+                duration: "20 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.3.html"
+            },
+            {
+                title: "Type Conversion",
+                description: "Learn how to convert between different data types in Python.",
+                duration: "15 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.4.html"
+            },
+            {
+                title: "String Methods",
+                description: "Explore powerful string manipulation methods in Python.",
+                duration: "20 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.5.html"
+            },
+            {
+                title: "List Methods",
+                description: "Master list manipulation and common operations.",
+                duration: "20 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.6.html"
+            },
+            {
+                title: "Dictionary Methods",
+                description: "Learn advanced dictionary operations and methods.",
+                duration: "20 minutes",
+                level: "Beginner",
+                status: "active",
+                url: "lesson3.7.html"
+            }
+        ];
+
+        function createLessonCard(lesson, index) {
+            return `
+                <div class="lesson-card">
+                    <span class="lesson-number">Lesson ${index + 1}</span>
+                    <h3 class="lesson-title">${lesson.title}</h3>
+                    <p class="lesson-description">${lesson.description}</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            ${lesson.duration}
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-signal"></i>
+                            ${lesson.level}
+                        </span>
+                    </div>
+                    <a href="${lesson.url}" class="lesson-link">
+                        Start Lesson
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            `;
+        }
+
+        function initializeLessons() {
+            const lessonsGrid = document.getElementById('lessonsGrid');
+            lessonsGrid.innerHTML = lessons.map((lesson, index) => createLessonCard(lesson, index)).join('');
+        }
+
+        // Initialize lessons when the page loads
+        document.addEventListener('DOMContentLoaded', initializeLessons);
+    </script>
+</body>
+</html> 

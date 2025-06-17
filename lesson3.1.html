@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers and Strings - Python Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .definition {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .definition h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .code-example pre {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .concept-nav-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Numbers and Strings</h1>
+            <p class="lesson-description">Learn about numeric types (integers, floats) and string manipulation in Python.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 15 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Data Types</span>
+            </div>
+        </div>
+
+        <div class="concept-container active" data-concept="1">
+            <h2>Numeric Types</h2>
+            <div class="concept">
+                <h3>What are numeric types in Python?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Python has two main numeric types: integers (int) and floating-point numbers (float). Integers are whole numbers, while floats are numbers with decimal points.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of integers like counting whole items (1, 2, 3) and floats like measuring precise amounts (1.5, 2.75). Python automatically handles the type based on how you write the number.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Integers
+age = 25
+count = -10
+big_number = 1000000
+
+# Floats
+height = 1.75
+temperature = -3.5
+pi = 3.14159
+
+# Type checking
+print(type(age))      # <class 'int'>
+print(type(height))   # <class 'float'></code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates different ways to create integers and floats, and how to check their types.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="2">
+            <h2>Numeric Operations</h2>
+            <div class="concept">
+                <h3>How to perform calculations?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Python supports all basic arithmetic operations: addition (+), subtraction (-), multiplication (*), division (/), integer division (//), modulo (%), and exponentiation (**).</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of these operations like a calculator - you can add, subtract, multiply, and divide numbers just like you would on a calculator, but with more advanced features.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Basic arithmetic
+a = 10
+b = 3
+
+print(a + b)    # Addition: 13
+print(a - b)    # Subtraction: 7
+print(a * b)    # Multiplication: 30
+print(a / b)    # Division: 3.3333...
+print(a // b)   # Integer division: 3
+print(a % b)    # Modulo (remainder): 1
+print(a ** b)   # Exponentiation: 1000</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows all the basic arithmetic operations available in Python.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="3">
+            <h2>String Basics</h2>
+            <div class="concept">
+                <h3>What are strings?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A string is a sequence of characters enclosed in quotes (single or double). Strings are immutable, meaning once created, their individual characters cannot be changed.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of a string like a sentence - it's a collection of letters, numbers, and symbols that form words and phrases. Just like you can't change individual letters in a printed book, you can't change individual characters in a string.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># String creation
+name = "John"
+message = 'Hello, World!'
+multiline = """This is a
+multi-line string"""
+
+# String operations
+print(name + " " + message)  # Concatenation
+print(name * 3)              # Repetition
+print(len(name))             # Length
+print(name[0])               # Indexing
+print(name[1:3])             # Slicing</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates different ways to create and manipulate strings.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="4">
+            <h2>String Methods</h2>
+            <div class="concept">
+                <h3>How to manipulate strings?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>String methods are built-in functions that perform operations on strings. They return a new string rather than modifying the original string.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of string methods like text editing tools - they help you transform text in various ways, such as changing case, removing spaces, or replacing parts of the text.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>text = "  Python Programming  "
+
+# Common string methods
+print(text.strip())          # Remove spaces
+print(text.lower())          # Convert to lowercase
+print(text.upper())          # Convert to uppercase
+print(text.replace("Python", "Java"))  # Replace text
+print(text.split())          # Split into words
+print(text.count("o"))       # Count occurrences
+print(text.find("Pro"))      # Find substring</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows some of the most commonly used string methods in Python.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="5">
+            <h2>String Formatting</h2>
+            <div class="concept">
+                <h3>How to format strings?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>String formatting allows you to create strings by inserting values into a template. Python provides multiple ways to format strings: f-strings, .format(), and % operator.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of string formatting like filling in a form - you have a template with placeholders, and you fill in the values where needed.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>name = "Alice"
+age = 25
+score = 95.5
+
+# f-strings (recommended)
+print(f"{name} is {age} years old")
+print(f"Score: {score:.1f}%")
+
+# .format() method
+print("{} is {} years old".format(name, age))
+print("Score: {:.1f}%".format(score))
+
+# % operator (old style)
+print("%s is %d years old" % (name, age))
+print("Score: %.1f%%" % score)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates different ways to format strings in Python.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="6">
+            <h2>Type Conversion</h2>
+            <div class="concept">
+                <h3>How to convert between types?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Type conversion (casting) is the process of converting a value from one data type to another. Python provides built-in functions for type conversion: int(), float(), and str().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of type conversion like translating between languages - you're taking information in one format and converting it to another format that's more suitable for your needs.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># String to number
+age_str = "25"
+age_int = int(age_str)
+height_str = "1.75"
+height_float = float(height_str)
+
+# Number to string
+age = 25
+age_str = str(age)
+pi = 3.14159
+pi_str = str(pi)
+
+# Float to int (truncates decimal)
+price = 19.99
+price_int = int(price)  # 19
+
+print(f"Age as string: {age_str}")
+print(f"Height as float: {height_float}")
+print(f"Price as integer: {price_int}")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to convert between different data types in Python.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="7">
+            <h2>Practice Exercise: Calculator</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A simple calculator program that combines numeric operations, string formatting, and type conversion to create an interactive calculation tool.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines all the concepts we've learned to create a functional calculator. You'll use numeric operations for calculations, string formatting for output, and type conversion for user input.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def calculator():
+    print("Simple Calculator")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    
+    choice = input("Enter choice (1-4): ")
+    num1 = float(input("Enter first number: "))
+    num2 = float(input("Enter second number: "))
+    
+    if choice == "1":
+        result = num1 + num2
+        print(f"{num1} + {num2} = {result}")
+    elif choice == "2":
+        result = num1 - num2
+        print(f"{num1} - {num2} = {result}")
+    elif choice == "3":
+        result = num1 * num2
+        print(f"{num1} * {num2} = {result}")
+    elif choice == "4":
+        if num2 != 0:
+            result = num1 / num2
+            print(f"{num1} / {num2} = {result:.2f}")
+        else:
+            print("Error: Cannot divide by zero!")
+    else:
+        print("Invalid choice!")
+
+calculator()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise combines numeric operations, string formatting, and type conversion to create an interactive calculator.</p>
+            </div>
+        </div>
+
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentConcept = 1;
+        const totalConcepts = 7;
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            
+            prevBtn.disabled = currentConcept === 1;
+            nextBtn.disabled = currentConcept === totalConcepts;
+        }
+
+        function showConcept(conceptNumber) {
+            document.querySelectorAll('.concept-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            const concept = document.querySelector(`[data-concept="${conceptNumber}"]`);
+            if (concept) {
+                concept.classList.add('active');
+            }
+            
+            currentConcept = conceptNumber;
+            updateNavigation();
+        }
+
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 1) {
+                showConcept(currentConcept - 1);
+            }
+        });
+
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < totalConcepts) {
+                showConcept(currentConcept + 1);
+            }
+        });
+
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            showConcept(1);
+        });
+    </script>
+</body>
+</html> 

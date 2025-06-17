@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Python Syntax & Basics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lesson-title i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .concept-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .concept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .concept-number {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-number i {
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .concept-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .concept-answer {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-answer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-title i {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .answer-text {
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+        }
+
+        .nav-button:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .concept-question {
+                font-size: 1.2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .definition-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .definition-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .definition-title i {
+            font-size: 1.3rem;
+        }
+
+        .definition-text {
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <h1 class="lesson-title">
+                <i class="fas fa-code"></i>
+                Python Syntax & Basics
+            </h1>
+            <p class="lesson-description">
+                Master Python's fundamental syntax rules and basic concepts. Learn through practical examples and clear explanations.
+            </p>
+            <div class="lesson-stats">
+                <div class="stat-item">
+                    <i class="far fa-clock"></i>
+                    <span>25 minutes</span>
+                </div>
+                <div class="stat-item">
+                    <i class="far fa-file-alt"></i>
+                    <span>5 sections</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 1
+                </div>
+            </div>
+            <div class="concept-question">What is the correct way to declare and use variables in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    In Python, variables are dynamically typed and declared by simple assignment. Here's a comprehensive guide:
+
+                    Basic Variable Declaration:
+                    name = "John"          # String
+                    age = 25              # Integer
+                    height = 1.75         # Float
+                    is_student = True     # Boolean
+
+                    Multiple Assignment:
+                    x, y, z = 1, 2, 3     # Assign multiple values
+                    a = b = c = 0         # Same value to multiple variables
+
+                    Variable Naming Rules:
+                    • Use letters, numbers, and underscores
+                    • Start with a letter or underscore
+                    • Case-sensitive (age ≠ Age)
+                    • Avoid Python keywords (if, for, while, etc.)
+
+                    Best Practices:
+                    • Use descriptive names (user_age instead of a)
+                    • Follow snake_case convention
+                    • Keep names meaningful and readable
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        A variable in Python is a named location in memory that stores a value. Unlike some other programming languages, Python variables don't need explicit declaration of their type. The type is automatically determined by the value assigned to it. This is known as dynamic typing.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 2
+                </div>
+            </div>
+            <div class="concept-question">What are Python's basic data types and how are they used?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python has several built-in data types, each with specific use cases:
+
+                    1. Numbers:
+                    • Integers (int): 5, -3, 1000
+                    • Floats (float): 3.14, -0.001, 2.0
+                    • Complex (complex): 1 + 2j
+
+                    2. Strings (str):
+                    • Single or double quotes: 'Hello' or "World"
+                    • Multi-line strings: '''Hello\nWorld'''
+                    • String operations:
+                      name = "Python"
+                      print(name[0])      # 'P'
+                      print(name[1:4])    # 'yth'
+                      print(len(name))    # 6
+
+                    3. Boolean (bool):
+                    • True or False
+                    • Used in conditions: if is_valid: ...
+
+                    4. Collections:
+                    • Lists: [1, 2, 3] - Mutable, ordered
+                    • Tuples: (1, 2, 3) - Immutable, ordered
+                    • Dictionaries: {'key': 'value'} - Key-value pairs
+                    • Sets: {1, 2, 3} - Unique, unordered
+
+                    Type Conversion:
+                    str(42)      # '42'
+                    int('42')    # 42
+                    float('3.14') # 3.14
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Data types in Python are categories for values that determine what operations can be performed on them and how they are stored in memory. Python's basic data types are built into the language and don't require any special imports. They are designed to be simple to use while being powerful enough for most programming needs.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 3
+                </div>
+            </div>
+            <div class="concept-question">How do you write and use loops in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python offers two main types of loops: for and while.
+
+                    1. For Loops:
+                    # Basic range loop
+                    for i in range(5):
+                        print(i)  # Prints 0 to 4
+
+                    # Loop through a list
+                    fruits = ["apple", "banana", "cherry"]
+                    for fruit in fruits:
+                        print(fruit)
+
+                    # Loop with index
+                    for index, fruit in enumerate(fruits):
+                        print(f"{index}: {fruit}")
+
+                    2. While Loops:
+                    count = 0
+                    while count < 5:
+                        print(count)
+                        count += 1
+
+                    3. Loop Control:
+                    • break: Exit the loop
+                    • continue: Skip to next iteration
+                    • else: Execute when loop completes normally
+
+                    Example with control:
+                    for i in range(10):
+                        if i == 5:
+                            break
+                        if i % 2 == 0:
+                            continue
+                        print(i)
+                    else:
+                        print("Loop completed normally")
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Loops in Python are control structures that allow you to execute a block of code multiple times. The 'for' loop is used when you know the number of iterations in advance, while the 'while' loop is used when you need to continue until a certain condition is met. Python's loop syntax is designed to be readable and intuitive, making it easier to write and maintain code.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 4
+                </div>
+            </div>
+            <div class="concept-question">What is the correct syntax for conditional statements in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Python uses if, elif, and else statements for conditional logic. Here's a comprehensive guide:
+
+                    Basic If Statement:
+                    age = 18
+                    if age >= 18:
+                        print("You are an adult")
+                    else:
+                        print("You are a minor")
+
+                    Multiple Conditions:
+                    score = 85
+                    if score >= 90:
+                        grade = "A"
+                    elif score >= 80:
+                        grade = "B"
+                    elif score >= 70:
+                        grade = "C"
+                    else:
+                        grade = "F"
+
+                    Complex Conditions:
+                    age = 25
+                    has_id = True
+                    if age >= 18 and has_id:
+                        print("Can enter")
+                    elif age < 18 or not has_id:
+                        print("Cannot enter")
+
+                    Conditional Expressions (Ternary):
+                    age = 20
+                    status = "adult" if age >= 18 else "minor"
+
+                    Nested Conditions:
+                    if age >= 18:
+                        if has_id:
+                            print("Welcome")
+                        else:
+                            print("Need ID")
+                    else:
+                        print("Too young")
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Conditional statements in Python are used to make decisions in code based on whether certain conditions are true or false. They allow your program to execute different code blocks depending on the evaluation of expressions. Python's conditional syntax is known for its readability and simplicity, using indentation to define code blocks instead of braces or keywords.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number">
+                    <i class="fas fa-question-circle"></i>
+                    Question 5
+                </div>
+            </div>
+            <div class="concept-question">How do you define and use functions in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Answer
+                </div>
+                <div class="answer-text">
+                    Functions in Python are defined using the 'def' keyword. Here's a comprehensive guide:
+
+                    Basic Function:
+                    def greet(name):
+                        return f"Hello, {name}!"
+
+                    # Function call
+                    message = greet("Alice")
+                    print(message)
+
+                    Function Parameters:
+                    # Default parameters
+                    def greet(name, greeting="Hello"):
+                        return f"{greeting}, {name}!"
+
+                    # Keyword arguments
+                    greet(name="Bob", greeting="Hi")
+
+                    # Variable arguments
+                    def sum_all(*args):
+                        return sum(args)
+
+                    # Keyword arguments
+                    def print_info(**kwargs):
+                        for key, value in kwargs.items():
+                            print(f"{key}: {value}")
+
+                    Function Types:
+                    # Regular function
+                    def add(a, b):
+                        return a + b
+
+                    # Lambda function
+                    multiply = lambda x, y: x * y
+
+                    # Generator function
+                    def count_up_to(n):
+                        for i in range(n):
+                            yield i
+
+                    Function Documentation:
+                    def calculate_area(length, width):
+                        """
+                        Calculate the area of a rectangle.
+                        
+                        Args:
+                            length (float): Length of rectangle
+                            width (float): Width of rectangle
+                            
+                        Returns:
+                            float: Area of rectangle
+                        """
+                        return length * width
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title">
+                        <i class="fas fa-book"></i>
+                        Definition
+                    </div>
+                    <div class="definition-text">
+                        Functions in Python are reusable blocks of code that perform specific tasks. They help in organizing code, reducing repetition, and making programs more modular. Python functions are first-class objects, meaning they can be assigned to variables, passed as arguments, and returned from other functions. They support various parameter types and can be documented using docstrings for better code understanding.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="beginner.html" class="nav-button prev-button">
+                <i class="fas fa-arrow-left"></i>
+                Previous Lesson
+            </a>
+            <a href="lesson3.html" class="nav-button next-button">
+                Next Lesson
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const concepts = document.querySelectorAll('.concept-container');
+            let currentIndex = 0;
+            
+            // Hide all concepts except the first one
+            concepts.forEach((concept, index) => {
+                if (index !== 0) {
+                    concept.style.display = 'none';
+                }
+            });
+
+            // Show the first concept
+            if (concepts.length > 0) {
+                concepts[0].classList.add('active');
+            }
+
+            // Create and add the Next button
+            const nextButton = document.createElement('button');
+            nextButton.className = 'nav-button next-button';
+            nextButton.innerHTML = 'Next Question <i class="fas fa-arrow-right"></i>';
+            nextButton.style.margin = '2rem auto';
+            nextButton.style.display = 'block';
+            
+            const navigationButtons = document.querySelector('.navigation-buttons');
+            navigationButtons.parentNode.insertBefore(nextButton, navigationButtons);
+
+            // Add click event to the Next button
+            nextButton.addEventListener('click', function() {
+                // Hide current concept
+                concepts[currentIndex].style.display = 'none';
+                concepts[currentIndex].classList.remove('active');
+
+                // Move to next concept
+                currentIndex++;
+
+                // If we've shown all concepts, show the navigation buttons
+                if (currentIndex >= concepts.length) {
+                    nextButton.style.display = 'none';
+                    navigationButtons.style.display = 'flex';
+                    return;
+                }
+
+                // Show next concept
+                concepts[currentIndex].style.display = 'block';
+                setTimeout(() => {
+                    concepts[currentIndex].classList.add('active');
+                }, 50);
+
+                // Update button text for last question
+                if (currentIndex === concepts.length - 1) {
+                    nextButton.innerHTML = 'Finish <i class="fas fa-check"></i>';
+                }
+            });
+
+            // Initially hide the navigation buttons
+            navigationButtons.style.display = 'none';
+        });
+    </script>
+</body>
+</html> 

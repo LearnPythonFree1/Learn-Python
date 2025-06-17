@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Python Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .about-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2c3e50;
+        }
+
+        .feature i {
+            color: #3498db;
+            font-size: 20px;
+        }
+
+        .about-header p {
+            color: #666;
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .mission-box, .vision-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mission-box h2, .vision-box h2 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-box h2 i, .vision-box h2 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .team-section {
+            margin-bottom: 50px;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #666;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #3498db;
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            padding: 50px 0;
+            margin-bottom: 50px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .stat-box h3 {
+            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            color: #666;
+        }
+
+        .values-section {
+            margin: 50px 0;
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+
+        .values-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .value-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .value-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-box i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .value-box h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .value-box p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .stat-detail {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .team-intro {
+            text-align: center;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .team-member .bio {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .team-member .role {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .cta-section h2 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-button.primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .cta-button.secondary {
+            background: white;
+            color: #2c3e50;
+            border: 1px solid #dee2e6;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .mission-box ul, .vision-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .mission-box ul li, .vision-box ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .mission-box ul li:before, .vision-box ul li:before {
+            content: "•";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+        }
+
+        .learning-approach {
+            margin: 50px 0;
+            padding: 40px 0;
+        }
+
+        .learning-approach h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .approach-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .approach-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .approach-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .approach-icon i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .course-features {
+            margin: 50px 0;
+            padding: 40px 0;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .course-features h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box i {
+            color: #3498db;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .feature-box h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .feature-box ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-box ul li:before {
+            content: "•";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .approach-features {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .approach-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+
+        .approach-features li i {
+            color: #3498db;
+            font-size: 16px;
+        }
+
+        .learning-resources {
+            margin: 50px 0;
+            padding: 40px 0;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .learning-resources h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .resource-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .resource-icon i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .resource-box h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .resource-box p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-header h1 {
+                font-size: 28px;
+            }
+
+            .about-header p {
+                font-size: 16px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .approach-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fab fa-python"></i>
+                <span>PYTHON<span class="gradient-text">PRO</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="about.html" class="active">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="about-container">
+        <div class="about-header">
+            <h1>About Python Pro</h1>
+            <div class="header-content">
+                <div class="header-text">
+                    <p>Welcome to Python Pro, your dedicated platform for learning Python programming. We are committed to providing quality education and practical learning experiences to help you master Python programming.</p>
+                    <div class="header-features">
+                        <div class="feature">
+                            <i class="fas fa-code"></i>
+                            <span>Practical Learning</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-book"></i>
+                            <span>Structured Courses</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>Learn at Your Pace</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certification</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <span>Community Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-vision">
+            <div class="mission-box">
+                <div class="icon-wrapper">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2>Our Mission</h2>
+                <p>To empower individuals with Python programming skills through comprehensive, practical, and engaging learning experiences. We believe in making quality education accessible to everyone.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Provide practical Python education</li>
+                    <li><i class="fas fa-check"></i> Make learning programming accessible</li>
+                    <li><i class="fas fa-check"></i> Support students in their learning journey</li>
+                    <li><i class="fas fa-check"></i> Focus on practical, hands-on learning</li>
+                </ul>
+            </div>
+            <div class="vision-box">
+                <div class="icon-wrapper">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h2>Our Vision</h2>
+                <p>To be a trusted platform for Python education, helping learners develop the skills they need to succeed in programming.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Quality programming education for all</li>
+                    <li><i class="fas fa-check"></i> Practical, hands-on learning approach</li>
+                    <li><i class="fas fa-check"></i> Focus on real-world applications</li>
+                    <li><i class="fas fa-check"></i> Supportive learning environment</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="learning-approach">
+            <h2>Our Learning Approach</h2>
+            <div class="approach-grid">
+                <div class="approach-box">
+                    <div class="approach-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Hands-on Practice</h3>
+                    <p>Learn by doing with real coding exercises and projects that build your skills progressively.</p>
+                    <ul class="approach-features">
+                        <li><i class="fas fa-check-circle"></i> Interactive coding exercises</li>
+                        <li><i class="fas fa-check-circle"></i> Real-world projects</li>
+                        <li><i class="fas fa-check-circle"></i> Code review sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Practice challenges</li>
+                    </ul>
+                </div>
+                <div class="approach-box">
+                    <div class="approach-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Structured Learning</h3>
+                    <p>Follow a clear learning path from basics to advanced topics, with regular assessments.</p>
+                    <ul class="approach-features">
+                        <li><i class="fas fa-check-circle"></i> Step-by-step curriculum</li>
+                        <li><i class="fas fa-check-circle"></i> Progress tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Regular assessments</li>
+                        <li><i class="fas fa-check-circle"></i> Learning milestones</li>
+                    </ul>
+                </div>
+                <div class="approach-box">
+                    <div class="approach-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Community Support</h3>
+                    <p>Join a community of learners, share experiences, and get help when you need it.</p>
+                    <ul class="approach-features">
+                        <li><i class="fas fa-check-circle"></i> Discussion forums</li>
+                        <li><i class="fas fa-check-circle"></i> Peer code review</li>
+                        <li><i class="fas fa-check-circle"></i> Study groups</li>
+                        <li><i class="fas fa-check-circle"></i> Expert support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-features">
+            <h2>What You'll Learn</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <i class="fas fa-code"></i>
+                    <h3>Python Basics</h3>
+                    <ul>
+                        <li>Variables and Data Types</li>
+                        <li>Control Structures</li>
+                        <li>Functions and Modules</li>
+                        <li>File Handling</li>
+                        <li>Basic Input/Output</li>
+                        <li>String Manipulation</li>
+                        <li>Basic Error Handling</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Structures</h3>
+                    <ul>
+                        <li>Lists and Tuples</li>
+                        <li>Dictionaries</li>
+                        <li>Sets</li>
+                        <li>Custom Data Structures</li>
+                        <li>List Comprehensions</li>
+                        <li>Generators</li>
+                        <li>Iterators</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Advanced Topics</h3>
+                    <ul>
+                        <li>Object-Oriented Programming</li>
+                        <li>Error Handling</li>
+                        <li>Regular Expressions</li>
+                        <li>Testing and Debugging</li>
+                        <li>Decorators</li>
+                        <li>Context Managers</li>
+                        <li>Metaclasses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="learning-resources">
+            <h2>Learning Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-box">
+                    <div class="resource-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Tutorials</h3>
+                    <p>High-quality video lessons with clear explanations and demonstrations.</p>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>Code Examples</h3>
+                    <p>Practical code examples and templates to help you learn faster.</p>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Documentation</h3>
+                    <p>Comprehensive documentation and reference materials.</p>
+                </div>
+                <div class="resource-box">
+                    <div class="resource-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Practice Exercises</h3>
+                    <p>Hands-on exercises and challenges to reinforce learning.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2>Start Your Python Journey</h2>
+                <p>Begin learning Python today and take the first step towards becoming a proficient programmer.</p>
+                <div class="cta-buttons">
+                    <a href="courses.html" class="cta-button primary">
+                        <i class="fas fa-rocket"></i>
+                        Start Learning
+                    </a>
+                    <a href="contact.html" class="cta-button secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

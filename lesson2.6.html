@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Loops - Python Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f5f6fa;
+            color: #2c3e50;
+        }
+
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .lesson-header h1 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+        }
+
+        .lesson-description {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 1.5rem;
+            color: #7f8c8d;
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept-container h2 {
+            color: #2c3e50;
+            margin: 0 0 1.5rem 0;
+            font-size: 1.8rem;
+        }
+
+        .concept {
+            margin-bottom: 2rem;
+        }
+
+        .concept h3 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .concept p {
+            color: #34495e;
+            margin: 0 0 1rem 0;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-example pre {
+            margin: 0;
+            color: #ecf0f1;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2c3e50;
+        }
+
+        .explanation {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .practice-exercise {
+            background: #e8f4f8;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h2 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+        }
+
+        .practice-exercise ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .practice-exercise li {
+            margin: 0.5rem 0;
+            color: #34495e;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .concept-nav-btn {
+            padding: 0.5rem 1rem;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-nav-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .concept-nav-btn:hover:not(:disabled) {
+            background: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>For Loops</h1>
+            <p class="lesson-description">Learn how to use for loops to iterate over sequences and collections.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 15 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Control Flow</span>
+            </div>
+        </div>
+
+        <div class="concept-container active" data-concept="1">
+            <h2>Basic For Loop</h2>
+            <div class="concept">
+                <h3>What is a for loop?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A for loop is a control flow statement that iterates over a sequence (like a list, tuple, or string) and executes a block of code for each element in the sequence.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of a for loop like going through a shopping list - you check each item one by one until you've gone through the entire list.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This loop prints each fruit in the list.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="2">
+            <h2>For Loop with Range</h2>
+            <div class="concept">
+                <h3>How to loop through numbers?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The range() function generates a sequence of numbers, and for loops can iterate over this sequence to execute code a specific number of times.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>It's like counting - you start at one number and count up to another number, doing something at each step.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>for i in range(5):
+    print(f"Number: {i}")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This loop prints numbers from 0 to 4.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="3">
+            <h2>For Loop with Break</h2>
+            <div class="concept">
+                <h3>How to exit a for loop?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The break statement in a for loop allows you to exit the loop prematurely when a specific condition is met.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Break is like finding what you're looking for in a search - once you find it, you can stop looking through the rest of the items.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>for i in range(10):
+    if i == 5:
+        break
+    print(i)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This loop stops when it reaches 5.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="4">
+            <h2>For Loop with Continue</h2>
+            <div class="concept">
+                <h3>How to skip iterations?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The continue statement in a for loop skips the current iteration and moves to the next element in the sequence.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Continue is like skipping a step in a process - you move on to the next step without completing the current one.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>for i in range(5):
+    if i == 2:
+        continue
+    print(i)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This loop skips printing when i is 2.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="5">
+            <h2>For Loop with Else</h2>
+            <div class="concept">
+                <h3>What happens after the loop?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The else clause in a for loop executes when the loop has exhausted all items in the sequence, but only if the loop wasn't terminated by a break statement.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of it like a completion message - if you finish going through all items normally, you get a completion message, but if you quit early, you don't.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>for i in range(3):
+    print(i)
+else:
+    print("Loop finished!")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">The else clause runs after the loop completes normally.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="6">
+            <h2>Nested For Loops</h2>
+            <div class="concept">
+                <h3>How to use loops inside loops?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A nested for loop is a for loop inside another for loop, creating a hierarchical structure of iterations.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of it like a grid - the outer loop moves through rows, and the inner loop moves through columns.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>for i in range(3):
+    for j in range(3):
+        print(f"i={i}, j={j}")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This creates a 3x3 grid of coordinates.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="7">
+            <h2>For Loop with Enumerate</h2>
+            <div class="concept">
+                <h3>How to get both index and value?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The enumerate() function adds a counter to an iterable and returns it as an enumerate object, allowing you to access both the index and value in a for loop.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>It's like having a numbered list - you can see both the number and the item at the same time.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This prints each fruit with its index.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="8">
+            <h2>For Loop with Zip</h2>
+            <div class="concept">
+                <h3>How to loop through multiple lists?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The zip() function combines multiple iterables into a single iterable of tuples, allowing you to iterate over multiple sequences simultaneously.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>It's like matching items from different lists - you take one item from each list and work with them together.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>names = ["John", "Jane", "Bob"]
+ages = [25, 30, 35]
+for name, age in zip(names, ages):
+    print(f"{name} is {age} years old")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This pairs each name with its corresponding age.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="9">
+            <h2>For Loop with Dictionary</h2>
+            <div class="concept">
+                <h3>How to iterate through dictionaries?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>For loops can iterate over dictionaries using various methods to access keys, values, or both key-value pairs.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>It's like going through a dictionary - you can look at just the words, just the definitions, or both together.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>person = {"name": "John", "age": 30, "city": "New York"}
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This prints each key-value pair in the dictionary.</p>
+            </div>
+        </div>
+
+        <div class="concept-container" data-concept="10">
+            <h2>Practice Exercise: Shopping List Manager</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A shopping list manager that combines for loops, user input, and dictionary operations to create an interactive shopping experience.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines all the concepts we've learned to create a complete shopping list manager. You'll use for loops to display and process items, dictionaries to store prices, and user input for interaction.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def shopping_list_manager():
+    items = {}
+    while True:
+        print("\n1. Add item")
+        print("2. View list")
+        print("3. Calculate total")
+        print("4. Exit")
+        
+        choice = input("Enter your choice (1-4): ")
+        
+        if choice == "1":
+            item = input("Enter item name: ")
+            price = float(input("Enter item price: "))
+            items[item] = price
+        elif choice == "2":
+            print("\nShopping List:")
+            for item, price in items.items():
+                print(f"{item}: ${price:.2f}")
+        elif choice == "3":
+            total = sum(items.values())
+            print(f"\nTotal: ${total:.2f}")
+        elif choice == "4":
+            break
+
+shopping_list_manager()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise combines for loops, dictionaries, and user input to create an interactive shopping list manager.</p>
+            </div>
+        </div>
+
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const conceptContainers = document.querySelectorAll('.concept-container');
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            let currentConcept = 0;
+
+            function updateNavigation() {
+                prevBtn.disabled = currentConcept === 0;
+                nextBtn.disabled = currentConcept === conceptContainers.length - 1;
+            }
+
+            function showConcept(index) {
+                conceptContainers.forEach(container => container.classList.remove('active'));
+                conceptContainers[index].classList.add('active');
+                currentConcept = index;
+                updateNavigation();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentConcept > 0) {
+                    showConcept(currentConcept - 1);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentConcept < conceptContainers.length - 1) {
+                    showConcept(currentConcept + 1);
+                }
+            });
+
+            // Initialize first concept
+            showConcept(0);
+        });
+
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.background = '#27ae60';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 

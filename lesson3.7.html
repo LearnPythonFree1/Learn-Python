@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Methods - Python Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--background-color); color: var(--text-color); line-height: 1.6; }
+        .lesson-container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .lesson-header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+        .lesson-header h1 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem; }
+        .lesson-description { color: var(--secondary-color); font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+        .lesson-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; color: var(--secondary-color); }
+        .lesson-stats span { display: flex; align-items: center; gap: 0.5rem; }
+        .concept-container { background: var(--card-background); border-radius: var(--border-radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow); display: none; }
+        .concept-container.active { display: block; }
+        .concept h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.5rem; }
+        .definition { background: #f8f9fa; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .definition h4 { color: var(--secondary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .explanation { background: #f0f7ff; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .explanation h4 { color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .code-example { background: #2d2d2d; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; position: relative; }
+        .code-example pre { color: #fff; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .copy-btn { position: absolute; top: 1rem; right: 1rem; background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .copy-btn:hover { background-color: #357abd; }
+        .concept-navigation { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .concept-nav-btn { background: var(--primary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background-color 0.3s; }
+        .concept-nav-btn:hover { background-color: #357abd; }
+        .concept-nav-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        @media (max-width: 768px) { .lesson-container { padding: 1rem; } .lesson-header { padding: 1.5rem; } .lesson-header h1 { font-size: 2rem; } .lesson-stats { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Dictionary Methods</h1>
+            <p class="lesson-description">Learn how to manipulate and work with dictionaries in Python using built-in methods.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 20 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Data Types</span>
+            </div>
+        </div>
+        <div class="concept-container active" data-concept="1">
+            <h2>What are Dictionary Methods?</h2>
+            <div class="concept">
+                <h3>Definition and Purpose</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Dictionary methods are built-in functions that perform operations on dictionaries, such as accessing keys, values, or items.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Dictionary methods help you manage key-value pairs easily, like listing all keys or finding a value safely.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_dict = {"name": "Alice", "age": 30}
+print(my_dict.keys())  # dict_keys(['name', 'age'])</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to use a dictionary method to list all keys.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="2">
+            <h2>Accessing Keys, Values, and Items</h2>
+            <div class="concept">
+                <h3>How to access dictionary elements?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Common methods for accessing elements include keys(), values(), and items().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use keys() to get all keys, values() to get all values, and items() to get all key-value pairs.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_dict = {"name": "Alice", "age": 30}
+print(my_dict.keys())    # dict_keys(['name', 'age'])
+print(my_dict.values())  # dict_values(['Alice', 30])
+print(my_dict.items())   # dict_items([('name', 'Alice'), ('age', 30)])</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates how to access keys, values, and items in a dictionary.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="3">
+            <h2>Getting and Setting Values</h2>
+            <div class="concept">
+                <h3>How to get and set values safely?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The get() method retrieves a value with a default if the key is not found, and update() adds or modifies key-value pairs.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use get() to avoid errors when a key is missing, and update() to add multiple key-value pairs at once.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_dict = {"name": "Alice", "age": 30}
+print(my_dict.get("email", "Not found"))  # Not found
+my_dict.update({"email": "alice@example.com", "city": "London"})
+print(my_dict)  # {'name': 'Alice', 'age': 30, 'email': 'alice@example.com', 'city': 'London'}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to get and set values in a dictionary safely.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="4">
+            <h2>Removing Elements</h2>
+            <div class="concept">
+                <h3>How to remove elements from a dictionary?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Common methods for removing elements include pop(), popitem(), and clear().</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use pop() to remove a specific key-value pair, popitem() to remove the last inserted item, and clear() to empty the dictionary.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>my_dict = {"name": "Alice", "age": 30, "city": "London"}
+age = my_dict.pop("age")  # 30, my_dict is now {"name": "Alice", "city": "London"}
+item = my_dict.popitem()  # ('city', 'London'), my_dict is now {"name": "Alice"}
+my_dict.clear()  # {}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to remove elements from a dictionary using different methods.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="5">
+            <h2>Copying and Merging</h2>
+            <div class="concept">
+                <h3>How to copy and merge dictionaries?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The copy() method creates a shallow copy of a dictionary, and update() merges another dictionary into the current one.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Use copy() to duplicate a dictionary, and update() to combine two dictionaries.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>dict1 = {"a": 1, "b": 2}
+dict2 = dict1.copy()  # {'a': 1, 'b': 2}
+dict1.update({"c": 3})  # {'a': 1, 'b': 2, 'c': 3}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates how to copy and merge dictionaries in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="6">
+            <h2>Practice Exercise: Dictionary Manager</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A dictionary manager program that uses dictionary methods to add, remove, and display key-value pairs.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines multiple dictionary methods to create a functional dictionary management tool.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def dictionary_manager():
+    my_dict = {}
+    while True:
+        print("\n1. Add key-value pair")
+        print("2. Remove key-value pair")
+        print("3. Display dictionary")
+        print("4. Exit")
+        choice = input("Enter your choice (1-4): ")
+        if choice == "1":
+            key = input("Enter key: ")
+            value = input("Enter value: ")
+            my_dict[key] = value
+            print("Key-value pair added!")
+        elif choice == "2":
+            key = input("Enter key to remove: ")
+            if key in my_dict:
+                my_dict.pop(key)
+                print("Key-value pair removed!")
+            else:
+                print("Key not found!")
+        elif choice == "3":
+            print("Dictionary:", my_dict)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice!")
+dictionary_manager()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise lets you practice using dictionary methods to manage a dictionary interactively.</p>
+            </div>
+        </div>
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        let currentConcept = 1;
+        const totalConcepts = 6;
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            prevBtn.disabled = currentConcept === 1;
+            nextBtn.disabled = currentConcept === totalConcepts;
+        }
+        function showConcept(conceptNumber) {
+            document.querySelectorAll('.concept-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            const concept = document.querySelector(`[data-concept="${conceptNumber}"]`);
+            if (concept) {
+                concept.classList.add('active');
+            }
+            currentConcept = conceptNumber;
+            updateNavigation();
+        }
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 1) {
+                showConcept(currentConcept - 1);
+            }
+        });
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < totalConcepts) {
+                showConcept(currentConcept + 1);
+            }
+        });
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showConcept(1);
+        });
+    </script>
+</body>
+</html> 

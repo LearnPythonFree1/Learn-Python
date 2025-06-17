@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Values and Multiple Returns - Python Functions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .definition {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .definition h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .code-example pre {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .concept-nav-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Return Values and Multiple Returns</h1>
+            <p class="lesson-description">Learn how to effectively use return values and handle multiple return scenarios in Python functions.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 40 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Functions</span>
+            </div>
+        </div>
+
+        <!-- Concept 1: Basic Return Values -->
+        <div class="concept-container active" data-concept="1">
+            <h2>Basic Return Values</h2>
+            <div class="concept">
+                <h3>Understanding Single Return Values</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A return value is the output that a function sends back to the code that called it. It can be any Python object.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>The return statement ends the function execution and sends a value back to the caller. If no return statement is specified, the function returns None by default.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def square(number):
+    """Return the square of a number."""
+    return number ** 2
+
+# Using the return value
+result = square(5)
+print(result)  # Output: 25
+
+# Function without return statement
+def greet(name):
+    print(f"Hello, {name}!")
+
+result = greet("Alice")  # Output: Hello, Alice!
+print(result)  # Output: None</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 2: Multiple Return Values -->
+        <div class="concept-container" data-concept="2">
+            <h2>Multiple Return Values</h2>
+            <div class="concept">
+                <h3>Returning Multiple Values</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Python functions can return multiple values as a tuple, which can be unpacked into separate variables.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>When you return multiple values, Python automatically packs them into a tuple. You can unpack these values into separate variables when calling the function.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def get_coordinates():
+    """Return x and y coordinates."""
+    return 10, 20
+
+# Unpacking the return values
+x, y = get_coordinates()
+print(f"X: {x}, Y: {y}")  # Output: X: 10, Y: 20
+
+# Using the tuple directly
+coords = get_coordinates()
+print(coords)  # Output: (10, 20)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 3: Conditional Returns -->
+        <div class="concept-container" data-concept="3">
+            <h2>Conditional Returns</h2>
+            <div class="concept">
+                <h3>Returning Different Values Based on Conditions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Functions can return different values based on conditions using if-else statements.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>You can use conditional logic to determine what value to return. This is useful for functions that need to handle different cases or validate input.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def absolute_value(number):
+    """Return the absolute value of a number."""
+    if number >= 0:
+        return number
+    else:
+        return -number
+
+print(absolute_value(5))   # Output: 5
+print(absolute_value(-5))  # Output: 5
+
+def check_number(num):
+    """Return different messages based on number value."""
+    if num > 0:
+        return "Positive"
+    elif num < 0:
+        return "Negative"
+    else:
+        return "Zero"</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 4: Early Returns -->
+        <div class="concept-container" data-concept="4">
+            <h2>Early Returns</h2>
+            <div class="concept">
+                <h3>Using Return Statements to Exit Early</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Early returns allow you to exit a function before reaching its end, often used for validation or error handling.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Using early returns can make your code more readable by handling edge cases first and reducing nesting. This is often called the "guard clause" pattern.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def divide(a, b):
+    """Divide a by b with error handling."""
+    if b == 0:
+        return "Error: Division by zero"
+    
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        return "Error: Both arguments must be numbers"
+    
+    return a / b
+
+print(divide(10, 2))    # Output: 5.0
+print(divide(10, 0))    # Output: Error: Division by zero
+print(divide("10", 2))  # Output: Error: Both arguments must be numbers</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 5: Return Type Hints -->
+        <div class="concept-container" data-concept="5">
+            <h2>Return Type Hints</h2>
+            <div class="concept">
+                <h3>Documenting Return Types</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Type hints allow you to specify the expected return type of a function, improving code documentation and IDE support.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Type hints help other developers understand what type of value a function returns. They also enable better IDE support and static type checking.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from typing import List, Tuple, Union
+
+def calculate_stats(numbers: List[float]) -> Tuple[float, float]:
+    """Calculate mean and median of a list of numbers."""
+    if not numbers:
+        return 0.0, 0.0
+    mean = sum(numbers) / len(numbers)
+    sorted_nums = sorted(numbers)
+    mid = len(sorted_nums) // 2
+    median = (sorted_nums[mid] + sorted_nums[~mid]) / 2
+    return mean, median
+
+def process_data(data: Union[str, int]) -> Union[str, int]:
+    """Process data and return the same type."""
+    if isinstance(data, str):
+        return data.upper()
+    return data * 2</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 6: Return Values in Recursion -->
+        <div class="concept-container" data-concept="6">
+            <h2>Return Values in Recursion</h2>
+            <div class="concept">
+                <h3>Handling Return Values in Recursive Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Recursive functions use return values to build up their final result through multiple function calls.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>In recursive functions, each recursive call returns a value that contributes to the final result. The base case returns a simple value, while recursive cases combine their return values with the results of deeper calls.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def factorial(n: int) -> int:
+    """Calculate factorial using recursion."""
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+def fibonacci(n: int) -> int:
+    """Calculate nth Fibonacci number."""
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(factorial(5))    # Output: 120
+print(fibonacci(7))    # Output: 13</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 7: Return Values in Generators -->
+        <div class="concept-container" data-concept="7">
+            <h2>Return Values in Generators</h2>
+            <div class="concept">
+                <h3>Using Return in Generator Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Generator functions use yield to produce values and can use return to signal completion or provide a final value.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>In generator functions, yield produces values one at a time, while return can be used to signal the end of iteration or provide a final value that can be accessed through the StopIteration exception.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def count_up_to(n: int):
+    """Count up to n and return the sum."""
+    total = 0
+    for i in range(n):
+        total += i
+        yield i
+    return total
+
+gen = count_up_to(5)
+for num in gen:
+    print(num)  # Output: 0, 1, 2, 3, 4
+
+try:
+    next(gen)
+except StopIteration as e:
+    print(f"Final sum: {e.value}")  # Output: Final sum: 10</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 8: Return Values in Classes -->
+        <div class="concept-container" data-concept="8">
+            <h2>Return Values in Classes</h2>
+            <div class="concept">
+                <h3>Method Return Values</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Class methods can return values to provide information about the object's state or the result of operations.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Methods in classes can return values to communicate the result of operations, provide access to object attributes, or indicate the success/failure of operations.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>class BankAccount:
+    def __init__(self, balance: float):
+        self.balance = balance
+    
+    def deposit(self, amount: float) -> bool:
+        """Deposit money and return success status."""
+        if amount > 0:
+            self.balance += amount
+            return True
+        return False
+    
+    def get_balance(self) -> float:
+        """Return current balance."""
+        return self.balance
+
+account = BankAccount(1000)
+success = account.deposit(500)
+print(f"Deposit successful: {success}")  # Output: Deposit successful: True
+print(f"New balance: {account.get_balance()}")  # Output: New balance: 1500.0</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 9: Return Values in Decorators -->
+        <div class="concept-container" data-concept="9">
+            <h2>Return Values in Decorators</h2>
+            <div class="concept">
+                <h3>Handling Return Values in Decorated Functions</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Decorators can modify, enhance, or replace the return value of the functions they decorate.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Decorators can intercept the return value of decorated functions, modify it, or return a completely different value. This is useful for adding functionality like caching, logging, or validation.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def log_return(func):
+    """Decorator to log function return values."""
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} returned: {result}")
+        return result
+    return wrapper
+
+def cache_result(func):
+    """Decorator to cache function results."""
+    cache = {}
+    def wrapper(*args, **kwargs):
+        key = str(args) + str(kwargs)
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+    return wrapper
+
+@log_return
+@cache_result
+def fibonacci(n):
+    """Calculate nth Fibonacci number."""
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 10: Return Value Best Practices -->
+        <div class="concept-container" data-concept="10">
+            <h2>Return Value Best Practices</h2>
+            <div class="concept">
+                <h3>Guidelines for Effective Return Values</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Best practices for designing and using return values in Python functions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Following best practices for return values helps create more maintainable and predictable code. This includes being consistent with return types, using appropriate return values for error cases, and documenting return values clearly.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from typing import Optional, List, Dict, Any
+
+def search_user(user_id: int) -> Optional[Dict[str, Any]]:
+    """Search for a user by ID.
+    
+    Returns:
+        Optional[Dict[str, Any]]: User data if found, None if not found
+    """
+    # Simulate database lookup
+    users = {
+        1: {"name": "Alice", "age": 30},
+        2: {"name": "Bob", "age": 25}
+    }
+    return users.get(user_id)
+
+def process_items(items: List[str]) -> Dict[str, int]:
+    """Process a list of items and return statistics.
+    
+    Returns:
+        Dict[str, int]: Statistics about the processed items
+    """
+    if not items:
+        return {"count": 0, "processed": 0}
+    
+    return {
+        "count": len(items),
+        "processed": sum(1 for item in items if item.strip())
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-navigation">
+            <button class="concept-nav-btn" id="prev-concept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous Concept
+            </button>
+            <span id="concept-counter">Concept 1 of 10</span>
+            <button class="concept-nav-btn" id="next-concept">
+                Next Concept <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Concept navigation
+        let currentConcept = 0;
+        const concepts = document.querySelectorAll('.concept-container');
+        
+        function showConcept(index) {
+            concepts.forEach(concept => concept.classList.remove('active'));
+            concepts[index].classList.add('active');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.getElementById('concept-counter').textContent = 
+                `Concept ${currentConcept + 1} of ${concepts.length}`;
+            document.getElementById('prev-concept').disabled = currentConcept === 0;
+            document.getElementById('next-concept').disabled = 
+                currentConcept === concepts.length - 1;
+        }
+
+        document.getElementById('prev-concept').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+
+        document.getElementById('next-concept').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            }
+        });
+
+        // Initialize first concept
+        showConcept(0);
+    </script>
+</body>
+</html> 

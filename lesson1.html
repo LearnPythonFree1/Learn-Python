@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Introduction to Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lesson-title i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .concept-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .concept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .concept-number {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-number i {
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .concept-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .concept-answer {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-answer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-title i {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .answer-text {
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
+
+        .explanation {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-example::before {
+            content: 'Python';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .tip-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-box i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-text {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .prev-button {
+            background: #eee;
+            color: var(--text-light);
+        }
+
+        .next-button {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            margin: 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .concept-answer {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .code-example {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .tip-box {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Add responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .concept-container {
+                padding: 1.5rem;
+            }
+
+            .concept-question {
+                font-size: 1.2rem;
+            }
+
+            .answer-text {
+                font-size: 1rem;
+            }
+
+            .nav-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <h1 class="lesson-title">
+                <i class="fas fa-code"></i>
+                Lesson 1: Introduction to Python
+            </h1>
+            <p class="lesson-description">
+                Learn the fundamentals of Python programming, from basic concepts to essential features. This lesson covers Python's core concepts and basic syntax.
+            </p>
+            <div class="lesson-stats">
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span>30 minutes</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-tasks"></i>
+                    <span>10 Concepts</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span>Beginner Level</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-text">Progress: <span id="progressPercentage">0</span>%</div>
+
+        <div id="concepts-container">
+            <!-- Concepts will be dynamically inserted here -->
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="nav-button prev-button" id="prevButton" disabled>
+                <i class="fas fa-arrow-left"></i>
+                Previous
+            </button>
+            <button class="nav-button next-button" id="nextButton">
+                Next
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const concepts = [
+            {
+                question: "What is Python?",
+                answer: "Python is a high-level, interpreted programming language known for its simplicity and readability. It was created by Guido van Rossum and first released in 1991.",
+                explanation: "Python is designed to be easy to read and write, making it perfect for beginners. It's used in web development, data science, artificial intelligence, and more.",
+                code: "print('Hello, World!')\n# This is a simple Python program",
+                tip: "Python's syntax is designed to be readable and straightforward, making it an excellent choice for beginners."
+            },
+            {
+                question: "Why is Python called an interpreted language?",
+                answer: "Python is called an interpreted language because it executes code line by line, converting it to machine code at runtime, rather than compiling it all at once.",
+                explanation: "This means you can run Python code immediately without a separate compilation step, making it easier to test and debug your programs.",
+                code: "# Python executes this line by line\nx = 5\ny = 10\nprint(x + y)  # Output: 15",
+                tip: "The interpreted nature of Python allows for quick testing and modification of code."
+            },
+            {
+                question: "What are the key features of Python?",
+                answer: "Python's key features include:\n1. Simple and readable syntax\n2. Dynamic typing\n3. Extensive standard library\n4. Cross-platform compatibility\n5. Large community support",
+                explanation: "These features make Python versatile and beginner-friendly, allowing you to focus on solving problems rather than dealing with complex syntax.",
+                code: "# Dynamic typing example\nx = 5        # Integer\nx = 'Hello'  # String\nx = [1,2,3]  # List",
+                tip: "Python's dynamic typing means you don't need to declare variable types explicitly."
+            },
+            {
+                question: "What is a variable in Python?",
+                answer: "A variable in Python is a container for storing data values. It's created when you assign a value to it using the = operator.",
+                explanation: "For example: name = 'John' creates a variable named 'name' that stores the string 'John'. Variables can store different types of data like numbers, strings, or lists.",
+                code: "# Variable examples\nname = 'John'      # String variable\nage = 25           # Integer variable\nheight = 1.75      # Float variable\nis_student = True  # Boolean variable",
+                tip: "Variable names should be descriptive and follow Python naming conventions (use lowercase with underscores)."
+            },
+            {
+                question: "What are the basic data types in Python?",
+                answer: "Python's basic data types include:\n1. Integers (int) - whole numbers\n2. Floating-point numbers (float) - decimal numbers\n3. Strings (str) - text\n4. Booleans (bool) - True or False",
+                explanation: "Understanding these basic data types is fundamental to Python programming. Each type has its own characteristics and operations.",
+                code: "# Data type examples\nx = 42          # int\ny = 3.14        # float\nname = 'Python' # str\nis_true = True  # bool",
+                tip: "You can use the type() function to check the data type of any variable."
+            },
+            {
+                question: "How do you write comments in Python?",
+                answer: "In Python, you can write comments using the # symbol for single-line comments, or triple quotes (''' or \"\"\") for multi-line comments.",
+                explanation: "Comments are important for documenting your code and explaining what it does. They are ignored by the Python interpreter.",
+                code: "# This is a single-line comment\n\n'''\nThis is a\nmulti-line\ncomment\n'''",
+                tip: "Good comments explain why the code does something, not what it does."
+            },
+            {
+                question: "What is the difference between print() and input() in Python?",
+                answer: "print() is used to display output to the user, while input() is used to get input from the user. print() sends data to the screen, and input() receives data from the keyboard.",
+                explanation: "For example: name = input('Enter your name: ') gets user input, and print('Hello, ' + name) displays the output.",
+                code: "# Input and output example\nname = input('Enter your name: ')\nprint(f'Hello, {name}!')",
+                tip: "The input() function always returns a string, so you may need to convert it to other types if needed."
+            },
+            {
+                question: "What is type conversion in Python?",
+                answer: "Type conversion (or type casting) is the process of converting one data type to another. Python provides functions like int(), float(), and str() for type conversion.",
+                explanation: "For example: str(123) converts the integer 123 to the string '123'. This is useful when you need to work with different data types together.",
+                code: "# Type conversion examples\nx = '123'\ny = int(x)    # Convert string to integer\nz = float(x)  # Convert string to float\nw = str(y)    # Convert integer to string",
+                tip: "Be careful with type conversion - make sure the data can be converted to the desired type."
+            },
+            {
+                question: "What are operators in Python?",
+                answer: "Operators are special symbols that perform operations on variables and values. Python has arithmetic operators (+, -, *, /), comparison operators (==, !=, >, <), and logical operators (and, or, not).",
+                explanation: "Operators help you perform calculations, compare values, and combine conditions in your programs.",
+                code: "# Operator examples\nx = 10\ny = 3\n\n# Arithmetic\nprint(x + y)   # Addition\nprint(x - y)   # Subtraction\nprint(x * y)   # Multiplication\nprint(x / y)   # Division\n\n# Comparison\nprint(x > y)   # Greater than\nprint(x == y)  # Equal to",
+                tip: "Python also has special operators like ** for exponentiation and // for integer division."
+            },
+            {
+                question: "What is the importance of indentation in Python?",
+                answer: "Indentation is crucial in Python as it defines code blocks and structure. Unlike other languages that use braces {}, Python uses indentation to determine which code belongs to which block.",
+                explanation: "Proper indentation is not just about style in Python - it's a syntax requirement. Incorrect indentation will cause your code to fail.",
+                code: "# Indentation example\nif True:\n    print('This is indented')\n    print('This is also indented')\nprint('This is not indented')",
+                tip: "Use 4 spaces for indentation (not tabs) to follow Python's style guide (PEP 8)."
+            }
+        ];
+
+        let currentConcept = 0;
+
+        function createConceptElement(concept, index) {
+            const conceptDiv = document.createElement('div');
+            conceptDiv.className = 'concept-container';
+            conceptDiv.style.display = index === 0 ? 'block' : 'none';
+            
+            let codeExample = '';
+            if (concept.code) {
+                codeExample = `
+                    <div class="code-example">
+                        <pre>${concept.code}</pre>
+                    </div>
+                `;
+            }
+
+            let tipBox = '';
+            if (concept.tip) {
+                tipBox = `
+                    <div class="tip-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <div class="tip-content">
+                            <div class="tip-title">Pro Tip</div>
+                            <div class="tip-text">${concept.tip}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            conceptDiv.innerHTML = `
+                <div class="concept-header">
+                    <div class="concept-number">
+                        <i class="fas fa-book"></i>
+                        Concept ${index + 1} of ${concepts.length}
+                    </div>
+                </div>
+                <div class="concept-question">${concept.question}</div>
+                <div class="concept-answer">
+                    <div class="answer-title">
+                        <i class="fas fa-check-circle"></i>
+                        Answer
+                    </div>
+                    <div class="answer-text">${concept.answer}</div>
+                    ${codeExample}
+                    ${tipBox}
+                    <div class="explanation">${concept.explanation}</div>
+                </div>
+            `;
+
+            return conceptDiv;
+        }
+
+        function updateProgress() {
+            const progress = (currentConcept / concepts.length) * 100;
+            document.querySelector('.progress-fill').style.width = `${progress}%`;
+            document.getElementById('progressPercentage').textContent = Math.round(progress);
+        }
+
+        function showConcept(index) {
+            document.querySelectorAll('.concept-container').forEach((c, i) => {
+                c.style.display = i === index ? 'block' : 'none';
+                if (i === index) {
+                    setTimeout(() => c.classList.add('active'), 50);
+                } else {
+                    c.classList.remove('active');
+                }
+            });
+
+            document.getElementById('prevButton').disabled = index === 0;
+            document.getElementById('nextButton').textContent = index === concepts.length - 1 ? 'Finish' : 'Next';
+
+            updateProgress();
+        }
+
+        const conceptsContainer = document.getElementById('concepts-container');
+        concepts.forEach((concept, index) => {
+            conceptsContainer.appendChild(createConceptElement(concept, index));
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            } else {
+                const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                if (!completedLessons.includes(1)) {
+                    completedLessons.push(1);
+                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                }
+                window.location.href = 'beginner.html';
+            }
+        });
+
+        showConcept(0);
+    </script>
+</body>
+</html> 

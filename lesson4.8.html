@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decorators - Python Functions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .lesson-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .lesson-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-container {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .definition {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .definition h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .code-example pre {
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .concept-nav-btn:hover {
+            background-color: #357abd;
+        }
+
+        .concept-nav-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Decorators</h1>
+            <p class="lesson-description">Master the art of using decorators to modify and enhance Python functions with clean, reusable code.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 45 minutes</span>
+                <span><i class="fas fa-signal"></i> Intermediate</span>
+                <span><i class="fas fa-book"></i> Functions</span>
+            </div>
+        </div>
+
+        <!-- Concept 1: Basic Decorators -->
+        <div class="concept-container active" data-concept="1">
+            <h2>Basic Decorators</h2>
+            <div class="concept">
+                <h3>Understanding Function Decorators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A decorator is a function that takes another function as an argument and returns a modified version of that function.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Decorators allow you to modify the behavior of a function without changing its source code, following the principle of separation of concerns.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def my_decorator(func):
+    def wrapper():
+        print("Something is happening before the function is called.")
+        func()
+        print("Something is happening after the function is called.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+# This is equivalent to:
+# say_hello = my_decorator(say_hello)
+
+say_hello()
+# Output:
+# Something is happening before the function is called.
+# Hello!
+# Something is happening after the function is called.</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 2: Decorators with Arguments -->
+        <div class="concept-container" data-concept="2">
+            <h2>Decorators with Arguments</h2>
+            <div class="concept">
+                <h3>Passing Parameters to Decorators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Decorators can accept arguments that modify their behavior, allowing for more flexible and reusable decorator functions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>When a decorator needs to accept arguments, it requires an additional level of function nesting to handle the parameters.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def repeat(times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+
+@repeat(times=3)
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+# Output:
+# Hello, Alice!
+# Hello, Alice!
+# Hello, Alice!
+
+def validate_type(expected_type):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for arg in args:
+                if not isinstance(arg, expected_type):
+                    raise TypeError(f"Expected {expected_type.__name__}, got {type(arg).__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@validate_type(int)
+def add(a, b):
+    return a + b</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 3: Class Decorators -->
+        <div class="concept-container" data-concept="3">
+            <h2>Class Decorators</h2>
+            <div class="concept">
+                <h3>Decorating Classes</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Class decorators are decorators that modify or enhance the behavior of entire classes rather than individual methods.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Class decorators can add new methods, modify existing ones, or add class-level attributes to the decorated class.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def singleton(cls):
+    instances = {}
+    def get_instance(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return get_instance
+
+@singleton
+class Database:
+    def __init__(self):
+        print("Initializing database connection...")
+    
+    def query(self, sql):
+        print(f"Executing query: {sql}")
+
+# Both db1 and db2 will be the same instance
+db1 = Database()
+db2 = Database()
+print(db1 is db2)  # Output: True
+
+def add_methods(cls):
+    def new_method(self):
+        return "This is a new method"
+    cls.new_method = new_method
+    return cls
+
+@add_methods
+class MyClass:
+    pass
+
+obj = MyClass()
+print(obj.new_method())  # Output: This is a new method</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 4: Method Decorators -->
+        <div class="concept-container" data-concept="4">
+            <h2>Method Decorators</h2>
+            <div class="concept">
+                <h3>Decorating Class Methods</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Method decorators are decorators that modify the behavior of class methods, including instance methods, class methods, and static methods.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Method decorators can be used to add functionality to class methods, such as access control, logging, or validation.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def log_method_call(func):
+    def wrapper(self, *args, **kwargs):
+        print(f"Calling {func.__name__} with args: {args}, kwargs: {kwargs}")
+        result = func(self, *args, **kwargs)
+        print(f"{func.__name__} returned: {result}")
+        return result
+    return wrapper
+
+class Calculator:
+    @log_method_call
+    def add(self, x, y):
+        return x + y
+    
+    @log_method_call
+    def multiply(self, x, y):
+        return x * y
+
+calc = Calculator()
+calc.add(5, 3)      # Output: Calling add with args: (5, 3), kwargs: {}
+                    # Output: add returned: 8
+calc.multiply(4, 2) # Output: Calling multiply with args: (4, 2), kwargs: {}
+                    # Output: multiply returned: 8</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 5: Property Decorators -->
+        <div class="concept-container" data-concept="5">
+            <h2>Property Decorators</h2>
+            <div class="concept">
+                <h3>Using @property</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The @property decorator allows you to define methods that can be accessed like attributes, providing a way to implement getters, setters, and deleters.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Property decorators enable you to add validation, computation, or other logic to attribute access while maintaining a clean interface.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>class Person:
+    def __init__(self, name):
+        self._name = name
+    
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Name must be a string")
+        self._name = value
+    
+    @name.deleter
+    def name(self):
+        del self._name
+
+person = Person("Alice")
+print(person.name)  # Output: Alice
+
+person.name = "Bob"
+print(person.name)  # Output: Bob
+
+# This will raise a TypeError
+# person.name = 123
+
+del person.name
+# This will raise an AttributeError
+# print(person.name)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 6: Built-in Decorators -->
+        <div class="concept-container" data-concept="6">
+            <h2>Built-in Decorators</h2>
+            <div class="concept">
+                <h3>Python's Standard Decorators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Python provides several built-in decorators that serve common purposes, such as @staticmethod, @classmethod, and @functools.wraps.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>These decorators are part of Python's standard library and provide functionality that is commonly needed in Python programs.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from functools import wraps
+
+def my_decorator(func):
+    @wraps(func)  # Preserves the metadata of the original function
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+class Math:
+    @staticmethod
+    def add(x, y):
+        return x + y
+    
+    @classmethod
+    def from_string(cls, string):
+        x, y = map(int, string.split(','))
+        return cls(x, y)
+    
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+# Using static method
+print(Math.add(5, 3))  # Output: 8
+
+# Using class method
+math_obj = Math.from_string("10,20")
+print(math_obj.x, math_obj.y)  # Output: 10 20</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 7: Decorator Chaining -->
+        <div class="concept-container" data-concept="7">
+            <h2>Decorator Chaining</h2>
+            <div class="concept">
+                <h3>Using Multiple Decorators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Decorator chaining allows you to apply multiple decorators to a single function, with each decorator adding its own functionality.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>When multiple decorators are applied, they are executed from bottom to top, with the innermost decorator being applied first.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def log_calls(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+def validate_args(func):
+    def wrapper(*args, **kwargs):
+        if not all(isinstance(arg, int) for arg in args):
+            raise TypeError("All arguments must be integers")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_calls
+@validate_args
+def add(a, b):
+    return a + b
+
+# This is equivalent to:
+# add = log_calls(validate_args(add))
+
+print(add(5, 3))  # Output: Calling add
+                  # Output: 8
+
+# This will raise a TypeError
+# print(add("5", 3))</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 8: Decorator Factories -->
+        <div class="concept-container" data-concept="8">
+            <h2>Decorator Factories</h2>
+            <div class="concept">
+                <h3>Creating Decorators Dynamically</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A decorator factory is a function that returns a decorator, allowing for more flexible and reusable decorator creation.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Decorator factories enable you to create decorators with different behaviors based on parameters passed to the factory function.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def retry(max_attempts=3, delay=1):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            import time
+            attempts = 0
+            while attempts < max_attempts:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    attempts += 1
+                    if attempts == max_attempts:
+                        raise e
+                    print(f"Attempt {attempts} failed, retrying...")
+                    time.sleep(delay)
+        return wrapper
+    return decorator
+
+@retry(max_attempts=3, delay=2)
+def unreliable_function():
+    import random
+    if random.random() < 0.7:
+        raise ValueError("Random error")
+    return "Success!"
+
+# This will retry up to 3 times with a 2-second delay between attempts
+print(unreliable_function())</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 9: Context Manager Decorators -->
+        <div class="concept-container" data-concept="9">
+            <h2>Context Manager Decorators</h2>
+            <div class="concept">
+                <h3>Using @contextmanager</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>The @contextmanager decorator from the contextlib module allows you to create context managers using generator functions.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Context manager decorators simplify the creation of context managers by handling the setup and teardown logic in a single function.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from contextlib import contextmanager
+
+@contextmanager
+def temporary_file():
+    import tempfile
+    import os
+    
+    # Setup
+    temp = tempfile.NamedTemporaryFile(delete=False)
+    try:
+        yield temp
+    finally:
+        # Teardown
+        temp.close()
+        os.unlink(temp.name)
+
+# Using the context manager
+with temporary_file() as f:
+    f.write(b"Hello, World!")
+    f.flush()
+    print(f"File written to: {f.name}")
+# File is automatically deleted after the with block</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 10: Decorator Best Practices -->
+        <div class="concept-container" data-concept="10">
+            <h2>Decorator Best Practices</h2>
+            <div class="concept">
+                <h3>Guidelines for Using Decorators</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Best practices for writing and using decorators effectively in Python code.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Following these guidelines helps ensure your decorators are maintainable, reusable, and don't introduce unexpected behavior.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>from functools import wraps
+
+# Good: Preserving function metadata
+def good_decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+# Bad: Not preserving metadata
+def bad_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+# Good: Using decorator factories for flexibility
+def retry(max_attempts=3):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Implementation
+            pass
+        return wrapper
+    return decorator
+
+# Good: Documenting decorator behavior
+def documented_decorator(func):
+    """Decorator that logs function calls and their results."""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"{func.__name__} returned {result}")
+        return result
+    return wrapper</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-navigation">
+            <button class="concept-nav-btn" id="prev-concept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous Concept
+            </button>
+            <span id="concept-counter">Concept 1 of 10</span>
+            <button class="concept-nav-btn" id="next-concept">
+                Next Concept <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Concept navigation
+        let currentConcept = 0;
+        const concepts = document.querySelectorAll('.concept-container');
+        
+        function showConcept(index) {
+            concepts.forEach(concept => concept.classList.remove('active'));
+            concepts[index].classList.add('active');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.getElementById('concept-counter').textContent = 
+                `Concept ${currentConcept + 1} of ${concepts.length}`;
+            document.getElementById('prev-concept').disabled = currentConcept === 0;
+            document.getElementById('next-concept').disabled = 
+                currentConcept === concepts.length - 1;
+        }
+
+        document.getElementById('prev-concept').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+
+        document.getElementById('next-concept').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            }
+        });
+
+        // Initialize first concept
+        showConcept(0);
+    </script>
+</body>
+</html>

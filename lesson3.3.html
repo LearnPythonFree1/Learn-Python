@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionaries and Sets - Python Data Types</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--background-color); color: var(--text-color); line-height: 1.6; }
+        .lesson-container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .lesson-header { text-align: center; margin-bottom: 3rem; padding: 2rem; background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+        .lesson-header h1 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem; }
+        .lesson-description { color: var(--secondary-color); font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+        .lesson-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; color: var(--secondary-color); }
+        .lesson-stats span { display: flex; align-items: center; gap: 0.5rem; }
+        .concept-container { background: var(--card-background); border-radius: var(--border-radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow); display: none; }
+        .concept-container.active { display: block; }
+        .concept h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.5rem; }
+        .definition { background: #f8f9fa; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .definition h4 { color: var(--secondary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .explanation { background: #f0f7ff; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; }
+        .explanation h4 { color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .code-example { background: #2d2d2d; padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem; position: relative; }
+        .code-example pre { color: #fff; font-family: 'Consolas', monospace; overflow-x: auto; }
+        .copy-btn { position: absolute; top: 1rem; right: 1rem; background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .copy-btn:hover { background-color: #357abd; }
+        .concept-navigation { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .concept-nav-btn { background: var(--primary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background-color 0.3s; }
+        .concept-nav-btn:hover { background-color: #357abd; }
+        .concept-nav-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        @media (max-width: 768px) { .lesson-container { padding: 1rem; } .lesson-header { padding: 1.5rem; } .lesson-header h1 { font-size: 2rem; } .lesson-stats { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div class="lesson-header">
+            <h1>Dictionaries and Sets</h1>
+            <p class="lesson-description">Learn about Python's powerful mapping and unique collection types: dictionaries and sets.</p>
+            <div class="lesson-stats">
+                <span><i class="fas fa-clock"></i> 20 minutes</span>
+                <span><i class="fas fa-signal"></i> Beginner</span>
+                <span><i class="fas fa-book"></i> Data Types</span>
+            </div>
+        </div>
+        <div class="concept-container active" data-concept="1">
+            <h2>Dictionaries Basics</h2>
+            <div class="concept">
+                <h3>What are dictionaries?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A dictionary is an unordered, mutable collection of key-value pairs. Keys must be unique and immutable. Dictionaries are created using curly braces <code>{}</code>.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of a dictionary like a real dictionary: you look up a word (key) to get its definition (value).</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Creating a dictionary
+person = {"name": "Alice", "age": 30, "city": "London"}
+
+# Accessing values
+print(person["name"])  # Alice
+
+# Adding or updating values
+person["email"] = "alice@example.com"
+person["age"] = 31
+
+# Removing a key-value pair
+del person["city"]
+
+# Checking if a key exists
+print("email" in person)  # True</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to create, access, and modify dictionaries in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="2">
+            <h2>Dictionary Methods</h2>
+            <div class="concept">
+                <h3>What can you do with dictionaries?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Dictionaries have built-in methods for accessing keys, values, items, and for safely retrieving or removing elements.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Dictionary methods are like tools for managing your address book: you can list all names, all addresses, or both together.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>person = {"name": "Alice", "age": 30, "city": "London"}
+
+# Get all keys, values, and items
+print(person.keys())    # dict_keys(['name', 'age', 'city'])
+print(person.values())  # dict_values(['Alice', 30, 'London'])
+print(person.items())   # dict_items([('name', 'Alice'), ...])
+
+# Get value with default
+print(person.get("email", "Not found"))
+
+# Remove and return a value
+age = person.pop("age")
+print(age)  # 30
+
+# Remove last inserted item
+item = person.popitem()
+print(item)</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates common dictionary methods and their usage.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="3">
+            <h2>Sets Basics</h2>
+            <div class="concept">
+                <h3>What are sets?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A set is an unordered collection of unique, immutable elements. Sets are created using curly braces <code>{}</code> or the <code>set()</code> function.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of a set like a bag of unique marbles: no duplicates, and the order doesn't matter.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Creating sets
+colors = {"red", "green", "blue"}
+numbers = set([1, 2, 3, 2, 1])  # Duplicates removed
+
+# Adding and removing elements
+colors.add("yellow")
+colors.remove("red")
+
+# Membership test
+print("green" in colors)  # True</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows how to create and use sets in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="4">
+            <h2>Set Operations</h2>
+            <div class="concept">
+                <h3>What can you do with sets?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Sets support mathematical operations like union, intersection, difference, and symmetric difference.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Set operations are like combining or comparing groups of friends to see who is in both, only one, or either group.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+# Union
+print(set1 | set2)  # {1, 2, 3, 4, 5, 6}
+
+# Intersection
+print(set1 & set2)  # {3, 4}
+
+# Difference
+print(set1 - set2)  # {1, 2}
+
+# Symmetric difference
+print(set1 ^ set2)  # {1, 2, 5, 6}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code demonstrates set operations in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="5">
+            <h2>Dictionaries vs Sets</h2>
+            <div class="concept">
+                <h3>How are they different?</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>Dictionaries store key-value pairs, while sets store only unique values. Both use curly braces, but their purposes and behaviors are different.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>Think of a dictionary as a labeled box (key-value), and a set as a box of unique items (values only).</p>
+                </div>
+                <div class="code-example">
+                    <pre><code># Dictionary: key-value pairs
+student = {"name": "Bob", "grade": "A"}
+
+# Set: unique values
+unique_grades = {"A", "B", "C", "A"}  # {'A', 'B', 'C'}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This code shows the difference between dictionaries and sets in Python.</p>
+            </div>
+        </div>
+        <div class="concept-container" data-concept="6">
+            <h2>Practice Exercise: Student Directory</h2>
+            <div class="concept">
+                <h3>Let's put it all together!</h3>
+                <div class="definition">
+                    <h4><i class="fas fa-book"></i> Definition</h4>
+                    <p>A student directory that uses a dictionary to store student information and a set to track unique courses.</p>
+                </div>
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <p>This exercise combines dictionaries and sets to manage student data and ensure unique course names.</p>
+                </div>
+                <div class="code-example">
+                    <pre><code>def student_directory():
+    students = {}
+    courses = set()
+    while True:
+        print("\n1. Add student")
+        print("2. View students")
+        print("3. Add course")
+        print("4. View courses")
+        print("5. Exit")
+        choice = input("Enter your choice (1-5): ")
+        if choice == "1":
+            name = input("Enter student name: ")
+            age = input("Enter age: ")
+            students[name] = {"age": age}
+            print("Student added!")
+        elif choice == "2":
+            if not students:
+                print("No students!")
+            else:
+                for name, info in students.items():
+                    print(f"{name}: {info}")
+        elif choice == "3":
+            course = input("Enter course name: ")
+            courses.add(course)
+            print("Course added!")
+        elif choice == "4":
+            print("Courses:", courses)
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice!")
+student_directory()</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <p class="explanation">This exercise combines dictionaries and sets to create a simple student directory and course tracker.</p>
+            </div>
+        </div>
+        <div class="concept-navigation" style="margin-top: 2rem;">
+            <button class="concept-nav-btn" id="prevConcept" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="concept-nav-btn" id="nextConcept">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        let currentConcept = 1;
+        const totalConcepts = 6;
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevConcept');
+            const nextBtn = document.getElementById('nextConcept');
+            prevBtn.disabled = currentConcept === 1;
+            nextBtn.disabled = currentConcept === totalConcepts;
+        }
+        function showConcept(conceptNumber) {
+            document.querySelectorAll('.concept-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            const concept = document.querySelector(`[data-concept="${conceptNumber}"]`);
+            if (concept) {
+                concept.classList.add('active');
+            }
+            currentConcept = conceptNumber;
+            updateNavigation();
+        }
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 1) {
+                showConcept(currentConcept - 1);
+            }
+        });
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < totalConcepts) {
+                showConcept(currentConcept + 1);
+            }
+        });
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showConcept(1);
+        });
+    </script>
+</body>
+</html> 

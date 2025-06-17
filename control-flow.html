@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Flow in Python | Learn Python Programming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #fafafa;
+            --border: #e5e7eb;
+            --success: #059669;
+            --radius: 0.5rem;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --transition: all 0.2s ease;
+            --gradient-start: #2563eb;
+            --gradient-end: #1d4ed8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #60a5fa;
+                --primary-dark: #3b82f6;
+                --primary-light: #1e3a8a;
+                --text: #f3f4f6;
+                --text-light: #d1d5db;
+                --bg: #111827;
+                --bg-alt: #1f2937;
+                --border: #374151;
+                --gradient-start: #60a5fa;
+                --gradient-end: #3b82f6;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--primary-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--primary-light) 0%, transparent 50%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+        }
+
+        .hero-icon {
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #2563eb;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #444;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .lessons {
+            padding: 4rem 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .lessons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+        }
+
+        .lessons-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .lessons-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .lessons-description {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .lesson-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            background: var(--bg);
+        }
+
+        .lesson-number {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            border-radius: 1rem;
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover {
+            background: var(--primary);
+            color: var(--bg);
+            transform: translateX(4px);
+        }
+
+        .lesson-link i {
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .lesson-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        footer {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            .hero {
+                padding: 3rem 0;
+                max-width: 100%;
+            }
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .lesson-card {
+                padding: 1.2rem;
+                font-size: 1rem;
+            }
+            .lesson-title {
+                font-size: 1.15rem;
+            }
+            .lesson-description {
+                font-size: 1rem;
+            }
+            .lesson-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding-top: 0.5rem;
+            }
+            .lesson-link {
+                width: 100%;
+                justify-content: center;
+                font-size: 1rem;
+                padding: 0.7rem 0;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-content {
+                padding: 2rem 0.5rem 1rem 0.5rem;
+            }
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+            .hero-subtitle {
+                font-size: 1.05rem;
+            }
+            .hero p {
+                font-size: 0.98rem;
+            }
+            .lessons-header .lessons-title {
+                font-size: 1.2rem;
+            }
+            .lesson-card {
+                padding: 0.8rem;
+            }
+            .lesson-title {
+                font-size: 1rem;
+            }
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+            .lesson-link {
+                font-size: 0.95rem;
+                padding: 0.6rem 0;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Remove navbar styles */
+        .navbar {
+            display: none;
+        }
+        .navbar-section {
+            display: none;
+        }
+        .nav-links {
+            display: none;
+        }
+        .login-btn {
+                display: none;
+        }
+        .lesson-link.disabled {
+            background: #ccc !important;
+            color: #888 !important;
+            cursor: not-allowed !important;
+        }
+    </style>
+    <script>
+        // Control Flow lesson data
+        const lessons = [
+            { id: 1, title: "Lesson 2.1: If Statements", description: "Learn how to use if statements for decision making in Python.", duration: "15 min", url: "lesson2.1.html", status: "active" },
+            { id: 2, title: "Lesson 2.2: loops", description: "Explore elif and else for multi-way branching in your code.", duration: "15 min", url: "lesson2.2.html", status: "active" },
+            { id: 3, title: "Lesson 2.3: Break", description: "Learn about different types of loops and their applications in Python.", duration: "15 min", url: "lesson2.3.html", status: "active" },
+            { id: 4, title: "Lesson 2.4: Match Statements", description: "Learn about Python's match statement for pattern matching and control flow.", duration: "15 min", url: "lesson2.4.html", status: "active" },
+            { id: 5, title: "Lesson 2.5: While Loops", description: "Learn how to use while loops for repeated execution.", duration: "15 min", url: "lesson2.5.html", status: "active" },
+            { id: 6, title: "Lesson 2.6: For Loops", description: "Master for loops to iterate over sequences in Python.", duration: "15 min", url: "lesson2.6.html", status: "active" }
+        ];
+
+        // Function to check if a file exists (AJAX HEAD request)
+        function fileExists(url, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('HEAD', url);
+            xhr.onload = function() {
+                callback(xhr.status !== 404);
+            };
+            xhr.onerror = function() {
+                callback(false);
+            };
+            xhr.send();
+        }
+
+        // Function to render lessons
+        function renderLessons() {
+            const grid = document.getElementById('lessonsGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            lessons.forEach((lesson, index) => {
+                const card = document.createElement('article');
+                card.className = 'lesson-card fade-in';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const statusClass = lesson.status === 'locked' ? 'locked' : '';
+                const buttonText = lesson.status === 'locked' ? 'Locked' : 'Start Lesson';
+                const icon = lesson.status === 'locked' ? 'fa-lock' : 'fa-arrow-right';
+                
+                card.innerHTML = `
+                    <div class="lesson-number">Lesson ${lesson.id}</div>
+                    <h3 class="lesson-title">${lesson.title}</h3>
+                    <p class="lesson-description">${lesson.description}</p>
+                    <div class="lesson-meta">
+                        <span class="meta-item">
+                            <i class="far fa-clock"></i>
+                            ${lesson.duration}
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-signal"></i>
+                            Beginner
+                        </span>
+                    </div>
+                    <a href="${lesson.url}" class="lesson-link ${statusClass}">
+                        ${buttonText} <i class="fas ${icon}"></i>
+                    </a>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLessons();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.lesson-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</head>
+<body>
+    <!-- Remove navbar HTML -->
+    <!-- <header>
+        <nav class="navbar">
+            <div class="navbar-section left">
+                <a href="index.html" class="logo">
+                    <i class="fab fa-python"></i>
+                    <span>PYTHON<span class="gradient-text">PRO</span></span>
+                </a>
+            </div>
+            <div class="navbar-section center">
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="about.html">About</a>
+                </div>
+            </div>
+            <div class="navbar-section right">
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+            </nav>
+    </header> -->
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-icon" style="font-size:3rem;color:#2563eb;margin-bottom:1rem;"><i class="fas fa-random"></i></div>
+            <h1>Master Control Flow in Python</h1>
+            <h2 class="hero-subtitle" style="font-size:1.3rem;font-weight:500;color:#2563eb;margin-bottom:1rem;">Direct the Logic of Your Programs</h2>
+            <p>Unlock the power of decision-making and repetition in your code. This module covers if statements, loops, and advanced flow tools to help you build interactive, intelligent Python applications with confidence.</p>
+        </div>
+    </section>
+    <section class="lessons">
+        <div class="container">
+            <div class="lessons-header">
+                <h2 class="lessons-title">Control Flow Topics</h2>
+                <p class="lessons-description">Explore the key concepts of control flow in Python. Each lesson below will help you understand and practice the building blocks of program logic.</p>
+            </div>
+            <div id="lessonsGrid" class="lessons-grid">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container" style="text-align:center; color:var(--text-light); padding:2rem 0;">
+            &copy; 2024 Python Learning. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html> 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Progress - PYTHON PRO</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fab fa-python"></i>
+                <span>PYTHON<span class="gradient-text">PRO</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="quiz.html">Quiz</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-actions">
+                <button class="auth-button">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+        <div class="progress-header">
+            <h1 id="welcome-message">Your Learning Progress</h1>
+            <p id="motivational-quote">"Learning never exhausts the mind." – Leonardo da Vinci</p>
+        </div>
+
+        <div class="progress-overview">
+            <div class="circular-progress" id="circular-progress">
+                <span class="circular-label" id="circular-label">0%</span>
+                <svg width="100" height="100">
+                    <circle cx="50" cy="50" r="45" stroke="#e1e4e8" stroke-width="10" fill="none"/>
+                    <circle id="circular-bar" cx="50" cy="50" r="45" stroke="#4a90e2" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="282.74" stroke-dashoffset="282.74"/>
+                </svg>
+            </div>
+            <div class="overview-cards">
+                <div class="overview-card">
+                    <i class="fas fa-fire"></i>
+                    <div>
+                        <h4>Current Streak</h4>
+                        <p id="current-streak">0 days</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <h4>Courses Completed</h4>
+                        <p class="stat-number" id="courses-completed">0</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Hours Learned</h4>
+                        <p class="stat-number" id="hours-learned">0</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <h4>Achievements</h4>
+                        <p class="stat-number" id="achievements">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-timeline">
+            <h2>Learning Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item clickable" data-section="basics">
+                    <div class="timeline-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Python Basics</h3>
+                        <p>Start your journey with fundamental Python concepts</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-basics" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text-basics">0% Complete</span>
+                    </div>
+                </div>
+                <div class="timeline-item clickable" data-section="intermediate">
+                    <div class="timeline-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Intermediate Python</h3>
+                        <p>Master advanced concepts and build real applications</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-intermediate" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text-intermediate">0% Complete</span>
+                    </div>
+                </div>
+                <div class="timeline-item clickable" data-section="advanced">
+                    <div class="timeline-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Advanced Python</h3>
+                        <p>Become a Python expert with advanced topics</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-advanced" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text-advanced">0% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievements-section">
+            <h2>Your Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card locked" data-achievement="first-steps" title="Complete your first Python lesson to unlock!">
+                    <i class="fas fa-star"></i>
+                    <h3>First Steps</h3>
+                    <p>Complete your first Python lesson</p>
+                </div>
+                <div class="achievement-card locked" data-achievement="code-master" title="Complete 10 coding exercises to unlock!">
+                    <i class="fas fa-code"></i>
+                    <h3>Code Master</h3>
+                    <p>Complete 10 coding exercises</p>
+                </div>
+                <div class="achievement-card locked" data-achievement="python-pro" title="Complete all beginner courses to unlock!">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Python Pro</h3>
+                    <p>Complete all beginner courses</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-activity-section">
+            <h2>Recent Activity</h2>
+            <ul class="recent-activity-list" id="recent-activity-list">
+                <li>No recent activity yet.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About PYTHON PRO</h3>
+                <p>Your ultimate destination for mastering Python programming. We provide comprehensive learning resources and hands-on practice.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="learn.html">Learn</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 PYTHON PRO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

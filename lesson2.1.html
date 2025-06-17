@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2.1: If Statements - Python Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lesson-title i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesson-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .stat-item i {
+            color: var(--primary);
+        }
+
+        .concept-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.1);
+            display: none;
+            position: relative;
+        }
+
+        .concept-container.active {
+            display: block;
+        }
+
+        .concept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .concept-number {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-number i {
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .concept-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .concept-answer {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-answer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .answer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-title i {
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .answer-text {
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
+
+        .explanation {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-example::before {
+            content: 'Python';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .tip-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .tip-box i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-text {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .concept-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .concept-nav-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .concept-nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .practice-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .practice-title i {
+            color: var(--accent);
+        }
+
+        .practice-question {
+            background: rgba(74, 144, 226, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .practice-question h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .practice-question p {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .practice-hint {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .practice-hint.active {
+            display: block;
+        }
+
+        .hint-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-text {
+            color: var(--text);
+        }
+
+        .show-hint {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .show-hint:hover {
+            text-decoration: underline;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button.prev {
+            background: var(--light);
+            color: var(--text);
+        }
+
+        .nav-button.next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .lesson-header {
+                padding: 1.5rem;
+            }
+
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+
+            .lesson-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .concept-container {
+                padding: 1.5rem;
+            }
+
+            .concept-question {
+                font-size: 1.2rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <h1 class="lesson-title">
+                <i class="fas fa-code"></i>
+                Lesson 2.1: If Statements
+            </h1>
+            <p class="lesson-description">
+                Learn how to use if statements to make decisions in your Python programs. This fundamental concept allows your code to respond to different conditions and execute different blocks of code accordingly.
+            </p>
+            <div class="lesson-stats">
+                <div class="stat-item">
+                    <i class="far fa-clock"></i>
+                    <span>15 minutes</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-signal"></i>
+                    <span>Beginner Level</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <span>Control Flow</span>
+                </div>
+            </div>
+        </div>
+        <div id="concepts">
+            <div class="concept-container active">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 1</div>
+                </div>
+                <h2 class="concept-question">What is an if statement in Python?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Understanding If Statements</div>
+                    <div class="answer-text">An if statement is a conditional statement that allows your program to make decisions. It evaluates a condition and executes a block of code only if the condition is True.</div>
+                    <div class="code-example"><pre>age = 18
+if age >= 18:
+    print("You are an adult")</pre></div>
+                    <div class="explanation">In this example, the program checks if the age is greater than or equal to 18. If true, it prints "You are an adult". The indented code block only runs when the condition is met.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 2</div>
+                </div>
+                <h2 class="concept-question">How do we use comparison operators in if statements?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Comparison Operators</div>
+                    <div class="answer-text">Python provides several comparison operators to create conditions:</div>
+                    <div class="code-example"><pre># Equal to
+if x == 5:
+    print("x is 5")
+# Not equal to
+if x != 5:
+    print("x is not 5")
+# Greater than
+if x > 5:
+    print("x is greater than 5")
+# Less than
+if x < 5:
+    print("x is less than 5")
+# Greater than or equal to
+if x >= 5:
+    print("x is 5 or greater")
+# Less than or equal to
+if x <= 5:
+    print("x is 5 or less")</pre></div>
+                    <div class="tip-box"><i class="fas fa-lightbulb"></i><div class="tip-content"><div class="tip-title">Remember!</div><div class="tip-text">Always use == for equality comparison, not = (which is for assignment). This is a common mistake for beginners.</div></div></div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 3</div>
+                </div>
+                <h2 class="concept-question">What is an else statement?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> The else Clause</div>
+                    <div class="answer-text">The else statement allows you to execute a block of code if the condition in the if statement is False.</div>
+                    <div class="code-example"><pre>age = 16
+if age >= 18:
+    print("You are an adult")
+else:
+    print("You are a minor")</pre></div>
+                    <div class="explanation">If the age is not 18 or older, the else block runs instead.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 4</div>
+                </div>
+                <h2 class="concept-question">How do elif statements work?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> The elif Clause</div>
+                    <div class="answer-text">The elif (else if) statement lets you check multiple conditions in sequence.</div>
+                    <div class="code-example"><pre>temperature = 25
+if temperature > 30:
+    print("It's hot!")
+elif temperature >= 20:
+    print("It's warm")
+else:
+    print("It's cold")</pre></div>
+                    <div class="explanation">The program checks each condition in order and executes the first block where the condition is True.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 5</div>
+                </div>
+                <h2 class="concept-question">Can if statements be nested?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Nested If Statements</div>
+                    <div class="answer-text">Yes, you can put if statements inside other if statements to check multiple conditions.</div>
+                    <div class="code-example"><pre>age = 20
+has_id = True
+if age >= 18:
+    if has_id:
+        print("Entry allowed")
+    else:
+        print("ID required")
+else:
+    print("Entry denied")</pre></div>
+                    <div class="explanation">This checks both age and whether the person has an ID.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 6</div>
+                </div>
+                <h2 class="concept-question">What is the importance of indentation?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Indentation in Python</div>
+                    <div class="answer-text">Indentation is how Python knows which statements belong to which block. All code inside an if, elif, or else must be indented.</div>
+                    <div class="code-example"><pre>if True:
+    print("This is indented and will run.")
+print("This is outside the if block.")</pre></div>
+                    <div class="explanation">Improper indentation will cause a syntax error.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 7</div>
+                </div>
+                <h2 class="concept-question">How do logical operators work in if statements?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Logical Operators</div>
+                    <div class="answer-text">You can combine conditions using and, or, and not.</div>
+                    <div class="code-example"><pre>age = 25
+has_ticket = True
+if age >= 18 and has_ticket:
+    print("You can enter.")
+if not has_ticket:
+    print("You need a ticket.")</pre></div>
+                    <div class="explanation">Logical operators let you check multiple conditions at once.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 8</div>
+                </div>
+                <h2 class="concept-question">What is a one-line if statement?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Single-Line If</div>
+                    <div class="answer-text">You can write simple if statements on one line for brevity.</div>
+                    <div class="code-example"><pre>x = 10
+if x > 5: print("x is greater than 5")</pre></div>
+                    <div class="explanation">Only use this for very simple conditions.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 9</div>
+                </div>
+                <h2 class="concept-question">What is a ternary (conditional) expression?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> Ternary Operator</div>
+                    <div class="answer-text">Python supports a shorthand for if-else assignments, called the ternary operator.</div>
+                    <div class="code-example"><pre>age = 17
+status = "adult" if age >= 18 else "minor"
+print(status)</pre></div>
+                    <div class="explanation">This assigns "adult" or "minor" to status based on the condition.</div>
+                </div>
+            </div>
+            <div class="concept-container">
+                <div class="concept-header">
+                    <div class="concept-number"><i class="fas fa-lightbulb"></i> Concept 10</div>
+                </div>
+                <h2 class="concept-question">How do you use pass in if statements?</h2>
+                <div class="concept-answer">
+                    <div class="answer-title"><i class="fas fa-check-circle"></i> The pass Statement</div>
+                    <div class="answer-text">The pass statement is a placeholder that does nothing. Use it when a statement is required syntactically but you don't want any code to run.</div>
+                    <div class="code-example"><pre>x = 5
+if x > 0:
+    pass  # Do nothing for now
+else:
+    print("x is not positive")</pre></div>
+                    <div class="explanation">pass is useful when stubbing out code or for future implementation.</div>
+                </div>
+            </div>
+        </div>
+        <div class="practice-section">
+            <h2 class="practice-title"><i class="fas fa-tasks"></i> Practice Exercise</h2>
+            <div class="practice-question">
+                <h3>Temperature Check</h3>
+                <p>Write a program that checks the temperature and prints different messages based on the following conditions:</p>
+                <ul>
+                    <li>If temperature is above 30°C, print "It's hot!"</li>
+                    <li>If temperature is between 20°C and 30°C, print "It's warm"</li>
+                    <li>If temperature is below 20°C, print "It's cold"</li>
+                </ul>
+                <button class="show-hint"><i class="fas fa-lightbulb"></i> Show Hint</button>
+                <div class="practice-hint">
+                    <div class="hint-title"><i class="fas fa-lightbulb"></i> Hint</div>
+                    <div class="hint-text">You'll need to use multiple if statements with different conditions. Remember to use the appropriate comparison operators.</div>
+                </div>
+            </div>
+        </div>
+        <div class="concept-nav">
+            <button class="concept-nav-btn" id="prevConcept">Previous</button>
+            <button class="concept-nav-btn" id="nextConcept">Next</button>
+        </div>
+        <div class="navigation-buttons">
+            <a href="control-flow.html" class="nav-button prev"><i class="fas fa-arrow-left"></i> Back to Control Flow</a>
+        </div>
+    </div>
+    <script>
+        // Show/hide hints
+        document.querySelectorAll('.show-hint').forEach(button => {
+            button.addEventListener('click', () => {
+                const hint = button.nextElementSibling;
+                hint.classList.toggle('active');
+                button.textContent = hint.classList.contains('active') ? 'Hide Hint' : 'Show Hint';
+            });
+        });
+        // Concept navigation
+        const concepts = document.querySelectorAll('.concept-container');
+        let currentConcept = 0;
+        function showConcept(index) {
+            concepts.forEach((c, i) => c.classList.toggle('active', i === index));
+            document.getElementById('prevConcept').disabled = index === 0;
+            document.getElementById('nextConcept').disabled = index === concepts.length - 1;
+            document.querySelector('.practice-section').style.display = index === concepts.length - 1 ? 'block' : 'none';
+        }
+        document.getElementById('prevConcept').addEventListener('click', () => {
+            if (currentConcept > 0) {
+                currentConcept--;
+                showConcept(currentConcept);
+            }
+        });
+        document.getElementById('nextConcept').addEventListener('click', () => {
+            if (currentConcept < concepts.length - 1) {
+                currentConcept++;
+                showConcept(currentConcept);
+            }
+        });
+        showConcept(currentConcept);
+    </script>
+</body>
+</html> 

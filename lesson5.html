@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Strings in Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #50c878;
+            --accent: #f39c12;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --light: #f5f6fa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--light); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .lesson-header { background: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: 1px solid rgba(74, 144, 226, 0.1); position: relative; overflow: hidden; }
+        .lesson-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        .lesson-title { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .lesson-title i { font-size: 2.5rem; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .lesson-description { color: var(--text-light); margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .lesson-stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
+        .stat-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-light); }
+        .stat-item i { color: var(--primary); }
+        .concept-container { background: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: 1px solid rgba(74, 144, 226, 0.1); opacity: 0; transform: translateY(20px); transition: all 0.5s ease; position: relative; }
+        .concept-container.active { opacity: 1; transform: translateY(0); }
+        .concept-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid rgba(74, 144, 226, 0.1); }
+        .concept-number { font-size: 1.2rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .concept-number i { font-size: 1.4rem; color: var(--accent); }
+        .concept-question { font-size: 1.4rem; margin-bottom: 1.5rem; line-height: 1.6; color: var(--text); font-weight: 600; }
+        .concept-answer { background: rgba(74, 144, 226, 0.05); padding: 1.5rem; border-radius: 12px; margin-top: 1rem; border-left: 4px solid var(--primary); position: relative; overflow: hidden; }
+        .concept-answer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent); animation: shimmer 2s infinite; }
+        .answer-title { font-weight: 600; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
+        .answer-title i { font-size: 1.3rem; color: var(--accent); }
+        .answer-text { color: var(--text); line-height: 1.8; white-space: pre-line; font-size: 1.1rem; }
+        .definition-box { background: rgba(243, 156, 18, 0.1); border-left: 4px solid var(--accent); padding: 1.5rem; margin-top: 1.5rem; border-radius: 0 8px 8px 0; }
+        .definition-title { font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
+        .definition-title i { font-size: 1.3rem; color: var(--accent); }
+        .definition-text { color: var(--text); font-size: 1.05rem; line-height: 1.7; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .nav-button { background: var(--primary); color: white; border: none; padding: 0.8rem 2rem; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-button:hover { background: var(--secondary); color: white; }
+        @media (max-width: 700px) { .container { padding: 1rem; } .lesson-header, .concept-container { padding: 1rem; } .lesson-title { font-size: 1.3rem; } .concept-question { font-size: 1.1rem; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <div class="lesson-title">
+                <i class="fas fa-font"></i>
+                Lesson 5: Strings in Python
+            </div>
+            <div class="lesson-description">
+                Master string manipulation and formatting in Python. Learn about string methods, formatting techniques, and common string operations with practical examples.
+            </div>
+            <div class="lesson-stats">
+                <div class="stat-item"><i class="far fa-clock"></i> 30 min</div>
+                <div class="stat-item"><i class="far fa-file-alt"></i> 6 sections</div>
+            </div>
+        </div>
+
+        <!-- Concept 1: String Basics -->
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number"><i class="fas fa-question-circle"></i> Question 1</div>
+            </div>
+            <div class="concept-question">What are strings in Python and how do you create them?</div>
+            <div class="concept-answer">
+                <div class="answer-title"><i class="fas fa-lightbulb"></i> Answer</div>
+                <div class="answer-text">
+Strings in Python are sequences of characters enclosed in quotes. You can create strings using:
+
+1. Single quotes:
+   name = 'Python'
+
+2. Double quotes:
+   message = "Hello, World!"
+
+3. Triple quotes (for multi-line strings):
+   text = '''This is a
+   multi-line string'''
+
+4. String concatenation:
+   first = "Hello"
+   last = "World"
+   greeting = first + " " + last
+
+5. String repetition:
+   pattern = "=" * 10  # Creates "=========="
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title"><i class="fas fa-book"></i> Definition</div>
+                    <div class="definition-text">
+Strings are immutable sequences of Unicode characters in Python. They are one of the most commonly used data types and come with a rich set of built-in methods for manipulation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 2: String Methods -->
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number"><i class="fas fa-question-circle"></i> Question 2</div>
+            </div>
+            <div class="concept-question">What are the most commonly used string methods in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title"><i class="fas fa-lightbulb"></i> Answer</div>
+                <div class="answer-text">
+Common string methods include:
+
+1. Case manipulation:
+   text = "Hello World"
+   text.upper()      # "HELLO WORLD"
+   text.lower()      # "hello world"
+   text.title()      # "Hello World"
+   text.capitalize() # "Hello world"
+
+2. Searching and replacing:
+   text = "Hello World"
+   text.find("World")    # Returns 6
+   text.replace("World", "Python")  # "Hello Python"
+   text.count("l")       # Returns 3
+
+3. Stripping whitespace:
+   text = "  Hello  "
+   text.strip()      # "Hello"
+   text.lstrip()     # "Hello  "
+   text.rstrip()     # "  Hello"
+
+4. Splitting and joining:
+   text = "Hello,World,Python"
+   text.split(",")   # ["Hello", "World", "Python"]
+   "-".join(["Hello", "World"])  # "Hello-World"
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title"><i class="fas fa-book"></i> Definition</div>
+                    <div class="definition-text">
+String methods are built-in functions that allow you to manipulate strings in various ways. They return new strings (since strings are immutable) and don't modify the original string.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 3: String Formatting -->
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number"><i class="fas fa-question-circle"></i> Question 3</div>
+            </div>
+            <div class="concept-question">What are the different ways to format strings in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title"><i class="fas fa-lightbulb"></i> Answer</div>
+                <div class="answer-text">
+Python offers several string formatting methods:
+
+1. f-strings (Python 3.6+):
+   name = "Alice"
+   age = 25
+   message = f"{name} is {age} years old"
+
+2. str.format():
+   message = "{} is {} years old".format(name, age)
+   message = "{n} is {a} years old".format(n=name, a=age)
+
+3. % operator (old style):
+   message = "%s is %d years old" % (name, age)
+
+4. Template strings:
+   from string import Template
+   template = Template("$name is $age years old")
+   message = template.substitute(name=name, age=age)
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title"><i class="fas fa-book"></i> Definition</div>
+                    <div class="definition-text">
+String formatting allows you to create dynamic strings by inserting values into placeholders. f-strings are the most modern and readable approach, while other methods are maintained for compatibility.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 4: String Operations -->
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number"><i class="fas fa-question-circle"></i> Question 4</div>
+            </div>
+            <div class="concept-question">What are the common string operations in Python?</div>
+            <div class="concept-answer">
+                <div class="answer-title"><i class="fas fa-lightbulb"></i> Answer</div>
+                <div class="answer-text">
+Common string operations include:
+
+1. Indexing and slicing:
+   text = "Python"
+   text[0]      # 'P'
+   text[-1]     # 'n'
+   text[0:3]    # 'Pyt'
+   text[::2]    # 'Pto'
+
+2. Length and membership:
+   len(text)    # 6
+   'P' in text  # True
+   'x' in text  # False
+
+3. String comparison:
+   "Python" == "python"  # False
+   "Python" < "python"   # True (case-sensitive)
+
+4. String methods for checking:
+   text.isalpha()    # True
+   text.isdigit()    # False
+   text.startswith("Py")  # True
+   text.endswith("on")    # True
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title"><i class="fas fa-book"></i> Definition</div>
+                    <div class="definition-text">
+String operations allow you to access, manipulate, and analyze string content. They include indexing, slicing, length checking, membership testing, and various string methods for content validation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept 5: String Escaping -->
+        <div class="concept-container">
+            <div class="concept-header">
+                <div class="concept-number"><i class="fas fa-question-circle"></i> Question 5</div>
+            </div>
+            <div class="concept-question">How do you handle special characters and escaping in Python strings?</div>
+            <div class="concept-answer">
+                <div class="answer-title"><i class="fas fa-lightbulb"></i> Answer</div>
+                <div class="answer-text">
+Python provides several ways to handle special characters:
+
+1. Escape sequences:
+   text = "Line 1\nLine 2"  # New line
+   text = "Tab\there"       # Tab
+   text = "Quote: \"Hello\"" # Quote
+   text = "Backslash: \\"   # Backslash
+
+2. Raw strings (r-strings):
+   path = r"C:\Users\Name\Documents"  # No need to escape backslashes
+
+3. Triple quotes for multi-line:
+   text = """Line 1
+   Line 2
+   Line 3"""
+
+4. Unicode escape:
+   text = "\u0041"  # 'A'
+   text = "\U0001F600"  # '😀'
+                </div>
+                <div class="definition-box">
+                    <div class="definition-title"><i class="fas fa-book"></i> Definition</div>
+                    <div class="definition-text">
+String escaping allows you to include special characters in strings that would otherwise be difficult to represent. Python provides various escape sequences and special string prefixes to handle these cases.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="lesson4.html" class="nav-button prev-button">
+                <i class="fas fa-arrow-left"></i>
+                Previous Lesson
+            </a>
+            <a href="lesson6.html" class="nav-button next-button">
+                Next Lesson
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const concepts = document.querySelectorAll('.concept-container');
+            let currentIndex = 0;
+            
+            // Hide all concepts except the first one
+            concepts.forEach((concept, index) => {
+                if (index !== 0) {
+                    concept.style.display = 'none';
+                }
+            });
+
+            // Show the first concept
+            if (concepts.length > 0) {
+                concepts[0].classList.add('active');
+            }
+
+            // Create and add the Next button
+            const nextButton = document.createElement('button');
+            nextButton.className = 'nav-button next-button';
+            nextButton.innerHTML = 'Next Question <i class="fas fa-arrow-right"></i>';
+            nextButton.style.margin = '2rem auto';
+            nextButton.style.display = 'block';
+            
+            const navigationButtons = document.querySelector('.navigation-buttons');
+            navigationButtons.parentNode.insertBefore(nextButton, navigationButtons);
+
+            // Mark Lesson 5 as completed in localStorage
+            function finishLesson() {
+                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                if (!completedLessons.includes(5)) {
+                    completedLessons.push(5);
+                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                }
+            }
+
+            // Add click event to the Next button
+            nextButton.addEventListener('click', function() {
+                // Hide current concept
+                concepts[currentIndex].style.display = 'none';
+                concepts[currentIndex].classList.remove('active');
+
+                // Move to next concept
+                currentIndex++;
+
+                // If we've shown all concepts, show the navigation buttons
+                if (currentIndex >= concepts.length) {
+                    nextButton.style.display = 'none';
+                    navigationButtons.style.display = 'flex';
+                    finishLesson();
+                    return;
+                }
+
+                // Show next concept
+                concepts[currentIndex].style.display = 'block';
+                setTimeout(() => {
+                    concepts[currentIndex].classList.add('active');
+                }, 50);
+
+                // Update button text for last question
+                if (currentIndex === concepts.length - 1) {
+                    nextButton.innerHTML = 'Finish <i class="fas fa-check"></i>';
+                }
+            });
+
+            // Initially hide the navigation buttons
+            navigationButtons.style.display = 'none';
+        });
+    </script>
+</body>
+</html> 
